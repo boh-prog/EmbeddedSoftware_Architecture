@@ -1,0 +1,322 @@
+\chapter{AI-Assisted Execution Workflow}
+\ChapterLabel{AIImplementationWorkflow}
+\index{AI agent!execution workflow}
+\index{AI agent!parallel delegation}
+\index{AI agent!independent review}
+
+\section{Chapter Responsibility}
+\label{Section:AIImplementationWorkflowResponsibility}
+Organize AI-assisted work from planning through integration and human review.
+
+\noindent\textbf{Expected result:} Coordinated execution with explicit checks and approval boundaries.
+
+\section{Purpose and Scope}
+\label{Section:AIImplementationPurpose}
+Use this shared workflow for the AI skills selected in
+\ChapterRef{AIAgentGuide}: project initialization, architecture documents,
+requirements, user stories, analyses, code, tests, verification, validation,
+and release-readiness recommendations. Appendix~C defines the task inputs,
+context, steps, and acceptance criteria; this appendix defines how to plan,
+assign, execute, integrate, check, and review the work with one or more agents.
+Agent count does not change a task's acceptance criteria or human approval
+boundaries. Roles describe responsibilities, not a required agent count.
+Codex supplies the concrete examples; see
+\hyperref[Section:AIOtherTools]{Other AI Tools} for adapting the workflow.
+
+Follow the source-of-truth and human-decision rules in Appendix~C. Use approved
+baselines when implementing code; document drafts and analyses may propose
+changes but shall not claim human approval. Apply checks appropriate to the
+artifact: document builds and reciprocal mappings for architecture content,
+project builds and tests for code, controlled evidence for verification, and
+stakeholder observations for validation. Project-specific commands and
+completion criteria belong in the implementation and development-plan
+chapters; controlled relationships remain in their authoritative registers.
+
+Figure~\ref{Figure:AITaskExecutionActivity} connects
+\ChapterRef{AIAgentGuide} to this workflow. Appendix~C supplies the selected
+skill definitions; this workflow applies them with one or multiple agents and
+checks the results against their Acceptance. The final check uses the
+\hyperref[Table:AICompletionChecklist]{completion checklist}; completion does
+not imply human approval. This overview summarizes the successful path.
+Use Figure~\ref{Figure:AIImplementationSequence} and the
+\hyperref[Section:AIImplementationVerification]{correction and escalation rules}
+for failed checks and human decisions.
+
+\section{Starting the Workflow in an AI Chat}
+\label{Section:AIImplementationStart}
+Open a Codex chat in the project workspace and replace the bracketed fields.
+Starting delegated work involves three distinct responsibilities:
+\begin{enumerate}
+\item \textbf{Codex supplies the tools.} The application exposes tools to
+create, message, wait for, and interrupt subagents. This appendix and its
+prompts do not enable those tools. Current local Codex releases enable
+subagents by default; if disabled, enable \texttt{agents.enabled} in the
+Codex configuration before requesting delegated work.\footnote{Codex subagent
+configuration and delegation guidance: \cite{CodexSubagents}.}
+\item \textbf{The human authorizes delegation.} The request or applicable
+project instructions permit subagents and set scope, budget, concurrency,
+and decision boundaries. Tool availability alone is not authorization.
+\item \textbf{The aiaCoordinator decides and invokes.} Confirm tool availability
+and authorization, estimate the work, and choose one agent or independent
+bounded assignments. If delegation is useful and permitted, invoke the
+actual Codex subagent tools and wait for their results before integration.
+\end{enumerate}
+Use the starting request in the project chat; creating an API session or
+running Python is not required. Naming AI agent roles in a prompt does not
+launch subagents. Name authoritative sources and deliverables; the
+aiaCoordinator reports actual agents used and project-specific commands.
+See \hyperref[Section:AIAgentDelegation]{Choose and Invoke Agents} for assignment
+and invocation requirements. The examples follow the
+\hyperref[Section:AIPromptFormatting]{prompt formatting convention} in Appendix~C.
+
+\begin{samepage}
+\subsection{Start Any Selected AI Skill}
+\label{Section:AIStartSelectedTaskPrompt}
+
+\begingroup\ttfamily\raggedright
+\noindent In [project workspace], complete [outcome] using AIS-[IDs] from Table C.2 in ftdi2AIAgentGuide.tex. Read their sources, Context, Steps, and Acceptance. Follow the shared execution workflow in ftdi2AIImplementationWorkflow.tex. Act as aiaCoordinator. For substantial work, first apply \hyperref[Skill:AIS-01]{\texttt{AIS-01}}: estimate effort and token ranges, assumptions, and dependencies. You are authorized to use Codex subagent tools for independent bounded tasks, after confirming their availability, within project instructions and a maximum of [N] concurrent agents including yourself. Explain the delegation decision and assign each agent its AI Skill, Context, Steps, output, Acceptance, dependencies, and file ownership. Use one agent when delegation adds little value; if subagents are unavailable, report that and work sequentially. Integrate outputs, run the applicable checks, and obtain independent review when warranted. Arrange stakeholder validation where needed. After two unsuccessful corrections of the same failure, pause dependent work and present evidence and options. Ask me to resolve material decisions or required cost approvals before dependent work. Report actual agents used, changes, commands, evidence, and gaps. Do not submit, approve a baseline, or authorize release for me.\par
+\endgroup
+
+\end{samepage}
+
+\begin{samepage}
+\subsection{Develop an Approved Change}
+
+\begingroup\ttfamily\raggedright
+\noindent In [project workspace], develop [approved change] against [approved architecture and requirements]. Read the AI agent guide and Appendix D. As aiaCoordinator, list components, criteria, checks, and decision gaps. Assign bounded tasks with file ownership. You are authorized to use Codex subagent tools for independent work, with at most [N] concurrent agents including yourself. Confirm tool availability, explain the delegation decision, and invoke parallel aiaDeveloper agents only when useful; otherwise work sequentially. Integrate, verify, and obtain independent review. Arrange stakeholder validation; record only observed results. After two failed corrections of one check, pause dependent work and show evidence and options to revise or stop. Ask me to decide material scope, architecture, safety, security, release, or baseline issues. Report files, commands, checks, trace links, validation evidence, assumptions, and gaps. Do not submit or approve the change for me.\par
+\endgroup
+
+\end{samepage}
+
+The same sequence can prepare a requirements package before implementation.
+For that use, aiaDeveloper agents produce bounded analyses and drafts, the aiaCoordinator
+is the single writer for shared controlled registers, and checks include
+traceability and document builds. Replace its placeholders with project facts.
+
+\begin{samepage}
+\subsection{Prepare a Requirements Package}
+
+\begingroup\ttfamily\raggedright
+\noindent In [project workspace], develop a reviewable requirements package for [approved scenario]. Read the approved architecture, stakeholder scenario, applicable domain profiles, existing registers, AI agent guide, and Appendix D. List missing source facts as questions; do not invent project facts. Act as aiaCoordinator. First show the sources, artifacts, acceptance criteria, and task boundaries. You are authorized to use Codex subagent tools, with at most four concurrent agents including yourself. Confirm tool availability and explain the delegation decision. If independent work warrants it, invoke up to three AI agents: aiaDeveloperA for stories and validation scenarios, aiaDeveloperB for functional, interface, and fault requirements, aiaDeveloperC for verification and test design. Keep one writer per shared file; if subagents are unavailable, work sequentially. Integrate the outputs, create reciprocal trace links, run document and build checks, and report actual results. Obtain an independent review of the integrated candidate. After two unsuccessful corrections of a failed check, pause dependent work and show me evidence and options. Ask me to decide material scope, architecture, safety, or baseline issues. Report changed files, trace gaps, assumptions, evidence, and open issues. Do not submit or approve a baseline for me.\par
+\endgroup
+
+\end{samepage}
+
+\subsection{Other AI Tools}
+\label{Section:AIOtherTools}
+Codex is the concrete application used in the starting examples. The AI Skills,
+Context, Steps, Acceptance, and responsibilities of aiaCoordinator,
+aiaDeveloper, and aiaReviewer also apply when using other AI tools. The
+application provides the execution capabilities; a model name alone does not
+establish access to project files or tools for delegating work.
+
+\begin{description}
+\item[Claude Code.] Supports subagents with separate context and specified
+instructions, tools, and permissions. Adapt the starting request to Claude
+Code's available subagents and delegation tools; confirm the instructions
+and sources each subagent receives.\footnote{Claude Code subagent documentation:
+\cite{ClaudeCodeSubagents}.}
+\item[Gemini.] Gemini CLI supports subagents exposed to the main agent as tools;
+a delegated subagent returns its findings to the main agent. Confirm which
+subagents and permissions are available in the installed application before
+assigning work. Capabilities of Gemini CLI shall not be assumed for every
+Gemini chat interface.\footnote{Gemini CLI subagent documentation:
+\cite{GeminiCLISubagents}.}
+\item[Grok.] Grok offers a multi-agent research feature that coordinates agents
+for research and synthesizes their findings. Before using it for this workflow,
+confirm whether the selected Grok application or API supports the required
+project access, assignment boundaries, and checks. Research-agent collaboration
+alone does not demonstrate that separate aiaDeveloper agents edited and verified
+project artifacts.\footnote{Grok multi-agent research documentation:
+\cite{GrokMultiAgent}.}
+\end{description}
+
+For any other application, replace ``Codex subagent tools'' in the example
+request with its confirmed delegation capability. Keep the same AIS IDs,
+Context, Steps, Acceptance, role names, human authorization, file ownership,
+concurrency limits, verification, validation, and escalation rules. Identify
+the application and version in the execution report and record actual agents
+and checks used. If delegation is unavailable, report that limitation and
+complete the applicable work with one agent. A prompt cannot enable missing
+tools, and role names alone do not launch separate agents.
+
+\section{Plan the Selected Tasks}
+\label{Section:AIImplementationPlan}
+Before changing artifacts, select the applicable AI Skills and identify the
+requested outcome, approved constraints, relevant domain profiles, task
+acceptance criteria, affected sources, and required checks. For code changes,
+identify the approved requirements, architecture, interfaces, and tests. Use the AI Skills Register in
+\ChapterRef{AIAgentGuide} to load the affected sources and reciprocal mappings.
+Record any gap or conflict as a question with its implementation impact. An
+authorized human resolves a material architecture, scope, safety, security, or
+release decision before work that depends on that decision proceeds. An agent
+may prepare independent analysis while the decision is pending; it shall not
+silently choose an answer.
+
+Apply AI skill \hyperref[Skill:AIS-01]{\texttt{AIS-01}} in
+\hyperref[Table:AISkills]{the AI Skills Register} before substantial or
+delegated work. Break the approved work into bounded tasks with inputs, expected outputs,
+acceptance criteria, dependencies, and ownership of files or components. The
+aiaCoordinator decides whether delegation will shorten the work or improve review
+coverage enough to justify its coordination and token cost. Use one agent for
+short tasks, ordered chains of dependent steps, or changes concentrated in the
+same mutable files. Delegate in parallel only when tasks can make progress
+independently. Give each aiaDeveloper a distinct edit boundary or an isolated
+workspace; read-only investigations may share the same sources.
+
+\section{Choose and Invoke Agents}
+\label{Section:AIAgentDelegation}
+\index{AI agent!agent-count decision}
+No AIS inherently requires multiple agents. Use one agent for small edits,
+a dependent chain of steps, or work concentrated in shared mutable registers.
+Several AI Skills can be completed sequentially by one agent. Conversely, one AIS
+can be partitioned among multiple aiaDeveloper agents when its outputs are independent.
+Examples include separate architecture-view analyses, tests for independent
+components, or separate requirements-family drafts. Dependent outputs wait
+for their inputs; parallelism does not remove that dependency.
+
+The human sets the outcome, authorization, budget, concurrency limit, and
+project constraints. Within those limits, the aiaCoordinator decides whether to
+delegate, after applying \hyperref[Skill:AIS-01]{\texttt{AIS-01}} when required. Explain the decision,
+expected benefit, and coordination cost. Obtain human authorization when
+project instructions require it, when delegation is not permitted, or when a
+proposed plan exceeds agreed scope or cost. Do not interpret an estimate as
+approval. If no delegation is authorized, perform the work with one agent.
+
+To invoke multiple agents, the aiaCoordinator shall:
+\begin{enumerate}
+\item Confirm that the selected application exposes subagent tools and that the human request or
+applicable project instructions authorize their use, as described in
+\hyperref[Section:AIImplementationStart]{Starting the Workflow in an AI Chat}. Report its absence and use the
+single-agent path when delegation is unavailable. For applications other than
+Codex, apply \hyperref[Section:AIOtherTools]{Other AI Tools}.
+\item Create one bounded assignment per aiaDeveloper with applicable AIS IDs,
+authoritative source paths, linked Context, Steps, Acceptance, expected output, dependencies, and a distinct edit boundary. Reading
+shared sources is allowed; controlled shared registers have one writer.
+\item Launch assignments through the selected application's actual subagent tools, within the
+total concurrency limit. Use the available messaging, waiting, and interruption
+tools to coordinate their execution. A role name written in a
+prompt is not evidence that a separate agent was launched.
+\item Monitor returned results, resolve conflicts, and integrate ready outputs.
+Record actual agents used, assignments, checks, and unresolved issues. Do not
+claim parallel execution if the work was performed sequentially.
+\end{enumerate}
+For example, the aiaCoordinator may delegate story and validation-scenario
+analysis under \hyperref[Skill:AIS-05]{\texttt{AIS-05}} and \hyperref[Skill:AIS-11]{\texttt{AIS-11}}, requirements drafting
+under \hyperref[Skill:AIS-06]{\texttt{AIS-06}}, and test design under \hyperref[Skill:AIS-09]{\texttt{AIS-09}}. The aiaCoordinator
+integrates their drafts into shared registers after dependencies are resolved.
+These tasks may use several AI Skills; they do not create new skill IDs.
+
+\section{Responsibilities and Handoffs}
+\label{Section:AIAgentRoles}
+The prefix \texttt{aia} means AI agent. These role identifiers follow
+\hyperref[Rule:AITerminologyConsistency]{the terminology convention}.
+\index{AI agent!aiaCoordinator}
+\index{AI agent!aiaDeveloper}
+\index{AI agent!aiaReviewer}
+
+\begin{description}[leftmargin=3.1cm,style=nextline]
+\item[aiaCoordinator] Confirms scope and decisions, partitions independent work,
+assigns boundaries and acceptance criteria, reconciles results, integrates the
+change, runs system-level checks, and reports evidence and open issues.
+\item[aiaDeveloper] Produces the assigned analysis, document draft, code, tests, or evidence,
+changes only the assigned area, preserves the approved architecture and project conventions, runs relevant local checks, and returns
+a summary of changed files, results, assumptions, and unresolved issues.
+\item[aiaReviewer] Examines the integrated result against requirements,
+architecture, interfaces, tests, and evidence. The aiaReviewer reports concrete
+findings and does not mark a decision or release approved on behalf of the
+human owner.
+\end{description}
+
+Use the role names above consistently in instructions, figures, and reports.
+The aiaDeveloper is the agent assigned to a bounded task, including document
+authoring or analysis; the
+number of aiaDeveloper agents does not change the role name. One agent may coordinate and develop a small change, then perform a separate
+self-review pass. Report that pass as self-review, not independent review.
+When independent review is required, use an uninvolved agent or human; if none
+is available, report the review as pending. For a delegated change,
+the aiaReviewer should be independent of its implementation and should review
+only after integration produces a stable candidate. The aiaCoordinator resolves
+conflicting aiaDeveloper results and repeats checks after corrections. Figure~\ref{Figure:AIImplementationSequence}
+shows the optional parallel path and the later review handoff.
+
+\section{Develop, Integrate, and Verify}
+\label{Section:AIImplementationVerification}
+Each aiaDeveloper keeps changes traceable to the approved task and supplies
+local check results. The aiaCoordinator inspects and integrates all outputs,
+checks shared interfaces and architecture constraints, updates the affected
+documentation and reciprocal traceability, and runs the applicable complete build and checks: document compilation,
+reference and mapping checks for documents; project builds and relevant tests
+for code; evidence checks for verification and validation records. A failed check returns to the responsible task for
+correction, followed by integration and verification again. Limit this cycle
+to two unsuccessful correction attempts for the same failure. If the check
+still fails, or the cause requires a decision outside the approved scope, the
+aiaCoordinator reports the evidence and options to the human owner and pauses
+dependent work until the owner decides whether to revise scope, continue with
+a new bounded plan, or stop. A revised plan returns to task partitioning and
+the decision about whether parallel delegation is useful; a stop ends the
+workflow without review of an unverified candidate. Record actual
+commands, results, controlled artifact or implementation version, and evidence locations;
+do not infer a pass from a proposed test or an agent's assertion.
+
+The review checks the integrated candidate for requirement
+coverage, architecture conformance, unintended changes, missing tests, and
+unsupported evidence. The aiaCoordinator addresses findings and obtains another
+review when corrections affect the reviewed behavior. Human owners retain the
+authority for the decisions named in \ChapterRef{AIAgentGuide}. A verified and reviewed candidate proceeds to stakeholder validation when
+the task requires validation, with open issues reported. A document-only task
+may finish after its acceptance criteria, checks, and required review are met;
+it shall not claim implementation verification or stakeholder validation from
+a successful document build.
+
+\section{Validate with Stakeholders}
+\label{Section:AIImplementationValidation}
+When the selected task requires validation, prepare realistic scenarios mapped
+to the approved user stories and use cases. Stakeholders evaluate the candidate
+in its intended context against agreed success criteria. The aiaCoordinator may
+prepare the scenarios and organize evidence, but records validation as passed
+only from actual stakeholder observations and an authorized human disposition.
+Update the authoritative validation register with the result, evidence
+location, unmet needs, and requested changes. Passing implementation tests or
+agent review alone does not establish validation.
+
+If validation reveals a gap, the aiaCoordinator reports its impact and options to
+the human owner. A material change to scope, requirements, or architecture
+returns to planning and the delegation decision. A correction within approved
+scope returns to bounded development; repeat affected integration,
+verification, independent review, and validation before reporting completion.
+The authorized human retains acceptance and release decisions.
+
+\section{Project Tailoring Checklist}
+\label{Section:AIImplementationTailoring}
+When instantiating this template, record the following in the project-owned
+implementation and development-plan chapters rather than in tool bootstrap
+files:
+\begin{itemize}
+\item The AI tools permitted, how aiaDeveloper agents are launched, the maximum
+useful concurrency, and whether isolated workspaces are required.
+\item The project file or component ownership rules, integration owner, and
+required code review or change-control process.
+\item The exact build, static analysis, unit, integration, and system test
+commands, including any hardware-in-the-loop or manual checks.
+\item The required traceability, test evidence, implementation-version record,
+and acceptance criteria for completion.
+\item The validation scenarios, stakeholder participants, success criteria,
+evidence locations, and authorized owner of the validation disposition.
+\item The human decision owners and the points at which unresolved decisions
+pause dependent implementation or release.
+\end{itemize}
+
+\begin{figure}[htbp]
+  \centering
+  \resizebox{0.98\linewidth}{!}{\input{TikZ/ftdi2AIImplementationWorkflow/ftdi2AIImplementationSequence.tex}}
+  \caption[AI-assisted development and validation handoffs.]{AI-assisted development and validation handoffs. Codex supplies subagent tools; the human authorizes delegation; the aiaCoordinator decides and invokes. Parallel aiaDeveloper agents are used only for independent tasks; otherwise the aiaCoordinator develops tasks sequentially.}
+  \label{Figure:AIImplementationSequence}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \resizebox{\linewidth}{!}{\input{TikZ/ftdi2AIImplementationWorkflow/ftdi2AITaskExecutionActivity.tex}}
+  \caption{Activity connecting Appendix C skill definitions and Acceptance to Appendix D execution. The agent-count decision belongs to Appendix D for every selected task.}
+  \label{Figure:AITaskExecutionActivity}
+\end{figure}

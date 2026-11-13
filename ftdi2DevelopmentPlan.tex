@@ -1,0 +1,91 @@
+\chapter{Development Plan}
+\ChapterLabel{DevelopmentPlan}
+\section{Chapter Responsibility}
+\label{Section:DevelopmentPlanResponsibility}
+Define governance, initialization boundaries, and ownership of unresolved decisions.
+\noindent\textbf{Expected result:} A reviewable documentation candidate with explicit decision gates.
+
+\section{Confirmed Project Decisions}
+\label{Section:ConfirmedProjectDecisions}
+\DocumentOwner\ confirmed the name Embedded Software Architecture,
+namespace \texttt{ftdi2}, architecture-documentation-only scope, and their role
+as owner and approver. Unknown technical details are questions owned by \DocumentOwner. These decisions were supplied in this initialization chat on
+November 12, 2026. The owner subsequently supplied the identity below.
+\begin{description}
+\item[Owner and approver] \DocumentOwner
+\item[Organization] \Organization
+\item[Email] \href{mailto:\DocumentEmail}{\DocumentEmail}
+\end{description}
+Publication rights, other stakeholders, and delegated roles remain
+\hyperref[Question:Q-01]{Q-01}.
+
+\section{Domain Profile Selection}
+\label{Section:DevelopmentPlanProfiles}
+\begin{tabularx}{\linewidth}{L{3.0cm}L{2.2cm}Y}
+\caption{Project Domain Profile Decisions\label{Table:ProjectDomainProfiles}}\\
+\toprule Profile & Status & Rationale, Owner, and Date\\\midrule
+\hyperref[Chapter:EmbeddedSystemsProfile]{Embedded Systems} & Applicable &
+Explicitly selected by \DocumentOwner, owner and approver, on November 12,
+2026. Technical platform and hardware basis remain \hyperref[Question:Q-03]{Q-03}.\\
+\bottomrule
+\end{tabularx}
+Embedded Systems is the only profile supplied by template 2.33. Any additional
+assurance or profile needs remain \hyperref[Question:Q-09]{Q-09}. The retained
+profile guides assessment; it does not establish hardware facts or product obligations.
+
+\section{Change Control and Execution}
+\label{Section:ProjectChangeControl}
+Codex is the AI tool used for this initialization. One agent coordinates,
+drafts, builds, and performs self-review; no independent review is claimed.
+\DocumentOwner\ owns and approves scope, architecture, evidence, and
+acceptance. Technical decisions remain blocked until supported and approved;
+independent documentation preparation may continue.
+
+\DocumentOwner\ accepted the initialized project and authorized initial
+publication on November 12, 2026. The authorized target and package are
+recorded in \hyperref[Section:InitializationPublication]{the publication record}.
+The destination already contained Git on main at commit \texttt{2673ab5};
+retain that history, commit the initialized sources on main, and push to the
+authorized repository. Every later change uses a branch and pull request.
+The local owner-correction branch belongs to the initialization preparation;
+its uncommitted sources are included in this initial main publication.
+
+\section{Owned Questions}
+\label{Section:OwnedQuestions}
+Questions Q-01 through Q-10 remain Open and owned by \DocumentOwner.
+Q-11 is Resolved by the explicit owner decision linked in its row. Answers require
+supporting evidence or an explicit decision. No due dates were supplied.
+Questions are not product requirements and do not claim completed traceability.
+\small
+\begin{tabularx}{\linewidth}{L{1.0cm}L{3.0cm}Y}
+\caption{Owned Initialization Questions\label{Table:OwnedQuestions}}\\
+\toprule ID & Topic & Question and Authoritative Destination\\\midrule
+\endfirsthead
+\toprule ID & Topic & Question and Authoritative Destination\\\midrule
+\endhead
+\bottomrule\endlastfoot
+\phantomsection\label{Question:Q-01}Q-01 & Identity and governance & What publication rights, additional named stakeholders, and delegated roles apply? Destination: \ChapterRef{DevelopmentPlan}.\\
+\phantomsection\label{Question:Q-02}Q-02 & Purpose and scope & What embedded system is being documented, why is it needed, who uses it, and what capabilities, exclusions, operating environment, and external systems define its boundary? Destination: \ChapterRef{SystemContext}.\\
+\phantomsection\label{Question:Q-03}Q-03 & Platform and allocation & What platform class, processors, boards, hardware revisions, sensors, actuators, hardware--software allocations, firmware layers, dependencies, and deployment variants apply? Destination: \ChapterRef{ArchitectureOverview}.\\
+\phantomsection\label{Question:Q-04}Q-04 & Interface contracts & What physical, software, user, service, and communication interfaces apply? Supply controlled pinouts, electrical limits, protocols, formats, rates, units, error behavior, and interface owners. Destination: \ChapterRef{SystemContext}.\\
+\phantomsection\label{Question:Q-05}Q-05 & Timing and resources & What deadlines, jitter, scheduling, interrupts, memory, CPU, storage, bandwidth, power, thermal limits, margins, and measurement conditions apply? Destination: \ChapterRef{Requirements}.\\
+\phantomsection\label{Question:Q-06}Q-06 & Toolchain and configuration & What boot chain, BSP, HAL, RTOS/OS, SDK, compiler, linker, libraries, generated inputs, tool versions, build variants, and hardware compatibility are controlled? Destination: \ChapterRef{Implementation}.\\
+\phantomsection\label{Question:Q-07}Q-07 & Safety and security & What hazards, safe states, fault responses, reliability targets, threats, trust boundaries, provisioning, key custody, debug access, and safety/security decision authorities apply? Destination: \ChapterRef{Requirements}.\\
+\phantomsection\label{Question:Q-08}Q-08 & Lifecycle and environment & What environment, calibration, diagnostics, manufacturing, updates, rollback, recovery, maintenance, service, and component-obsolescence constraints apply? Destination: \ChapterRef{Requirements}.\\
+\phantomsection\label{Question:Q-09}Q-09 & Standards and assurance & What standards, regulatory or certification obligations, independent reviews, lifecycle gates, assurance evidence, and additional domain profiles are needed? Destination: \ChapterRef{DevelopmentPlan}.\\
+\phantomsection\label{Question:Q-10}Q-10 & Needs and evidence & What controlled stakeholder needs, requirements, interface documents, schematics, datasheets, analyses, test environments, procedures, results, and validation criteria are available? Destination: \ChapterRef{Tests}.\\
+\phantomsection\label{Question:Q-11}Q-11 & Acceptance and publication & Resolved November 12, 2026: owner acceptance and publication authorization received for the existing repository. See \hyperref[Section:InitializationPublication]{the authorized publication record}. Destination: \ChapterRef{Release}.\\
+\end{tabularx}
+\normalsize
+
+\section{Initialization Acceptance}
+\label{Section:InitializationAcceptance}
+Acceptance requires supported metadata and profile decisions, visible owned
+questions, a complete document build, no undefined citations or references,
+unique labels, preserved TikZ sources and link targets, and visual inspection
+of the candidate PDF. Build evidence belongs in the namespaced review report.
+Product requirements, architecture decisions, tests, verification, validation,
+and release remain unpopulated until supporting facts are supplied.
+A successful document build does not close technical gaps. Owner acceptance
+was subsequently received as recorded in
+\hyperref[Section:InitializationPublication]{the publication record}.

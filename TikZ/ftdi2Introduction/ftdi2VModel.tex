@@ -1,0 +1,46 @@
+% Adapted from MSE Figure 1.2; keep lifecycle and feedback routes orthogonal.
+\begingroup
+\begin{tikzpicture}[yscale=1.12,
+  stage/.style={draw=dsnBlue,fill=dsnBlue!7,rounded corners=2pt,text width=3.7cm,inner sep=0.10cm,minimum width=3.9cm,minimum height=1.25cm,align=center,font=\fontsize{16}{18}\selectfont},
+  evidence/.style={stage,draw=dsnRed,fill=dsnRed!7},
+  implementation/.style={stage,draw=dsnGray,fill=dsnGray!10},
+  operation/.style={stage,draw=dsnGray,fill=dsnGray!10},
+  lifecycle/.style={-{Latex[length=2.2mm]},line width=0.75pt},
+  relation/.style={draw=dsnGray,dashed,line width=0.6pt},
+  feedback/.style={-{Latex[length=2.2mm]},draw=dsnGray,dashed,line width=0.7pt},
+  label/.style={fill=white,inner sep=1.2pt,font=\fontsize{14}{16}\selectfont,text=dsnGray}
+]
+  \node[stage] (needs) at (-9.2,8.4) {Stakeholder needs};
+  \node[stage] (requirements) at (-6.9,6.3) {System and software\\requirements};
+  \node[stage] (architecture) at (-4.6,4.2) {Architecture};
+  \node[stage] (design) at (-2.3,2.1) {Detailed design};
+  \node[implementation] (implementation) at (0,0) {Implementation};
+  \node[evidence] (unit) at (2.3,2.1) {Unit tests};
+  \node[evidence] (integration) at (4.6,4.2) {Integration tests};
+  \node[evidence] (verification) at (6.9,6.3) {System\\verification};
+  \node[evidence] (validation) at (9.2,8.4) {Stakeholder\\validation};
+  \node[operation] (deployment) at (11.5,10.5) {Deployment};
+  \node[operation] (maintenance) at (13.8,12.6) {Operations \&\\ Maintenance};
+  \draw[lifecycle,draw=dsnBlue] (needs.south) -- ++(0,-0.4) -| (requirements.north);
+  \draw[lifecycle,draw=dsnBlue] (requirements.south) -- ++(0,-0.4) -| (architecture.north);
+  \draw[lifecycle,draw=dsnBlue] (architecture.south) -- ++(0,-0.4) -| (design.north);
+  \draw[lifecycle,draw=dsnBlue] (design.south) -- ++(0,-0.4) -| ([xshift=-3mm]implementation.north);
+  \draw[lifecycle,draw=dsnRed] ([xshift=3mm]implementation.north) -- ++(0,0.4) -| (unit.south);
+  \draw[lifecycle,draw=dsnRed] (unit.north) -- ++(0,0.4) -| (integration.south);
+  \draw[lifecycle,draw=dsnRed] (integration.north) -- ++(0,0.4) -| (verification.south);
+  \draw[lifecycle,draw=dsnRed] (verification.north) -- ++(0,0.4) -| (validation.south);
+  \draw[lifecycle,draw=dsnGray] (validation.north) -- ++(0,0.4) -| (deployment.south);
+  \draw[lifecycle,draw=dsnGray] (deployment.north) -- ++(0,0.4) -| (maintenance.south);
+  \draw[feedback] (maintenance.north) -- (13.8,14.1)
+    -- node[label,above=1pt,pos=0.48]{operational feedback / change request} (-9.2,14.1)
+    -- (needs.north);
+  \draw[relation] (needs) -- node[label,above=1pt]{acceptance} (validation);
+  \draw[relation] (requirements) -- node[label,above=1pt]{compliance} (verification);
+  \draw[relation] (architecture) -- node[label,above=1pt]{integration} (integration);
+  \draw[relation] (design) -- node[label,above=20pt]{correctness} (unit);
+  \draw[feedback,draw=dsnBlue] ([xshift=-4mm]validation.north)
+    -- (8.8,11.0)
+    -- node[label,above=1pt,text=dsnBlue]{agile iteration} (-8.8,11.0)
+    -- ([xshift=4mm]needs.north);
+\end{tikzpicture}
+\endgroup

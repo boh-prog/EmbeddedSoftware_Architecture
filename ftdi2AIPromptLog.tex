@@ -1,0 +1,55 @@
+\chapter{AI Prompt Log}
+\ChapterLabel{AIPromptLog}
+\section{Chapter Responsibility}
+\label{Section:AIPromptLogResponsibility}
+Preserve the provenance of material AI assistance and its human review.
+
+\noindent\textbf{Expected result:} An auditable account of how AI contributed to the engineering record.
+
+\section{How to Use This Appendix}
+Use this log when AI assistance materially affects requirements, architecture, code, tests, or release evidence. Record enough context for a reviewer to understand the input, output, assumptions, and human corrections.
+\section{Initialization Interaction}
+\label{Section:InitializationInteraction}
+Date: November 12, 2026. Tool: Codex. Role: aiaCoordinator, with drafting and
+self-review performed by the same agent. The user requested AIS-02 initialization
+from an unchanged template copy, a facts/gaps/files/checks preview, confirmation
+before dependent edits, separate TikZ sources, complete PDF build and inspection,
+and a later acceptance/publication gate. The user then confirmed the project
+name, namespace, owner and approver, documentation-only scope, Applicable
+Embedded Systems profile, and user ownership of unknown technical details.
+See \hyperref[Section:ConfirmedProjectDecisions]{confirmed decisions} and
+\hyperref[Section:OwnedQuestions]{owned questions}. No product facts or evidence
+were supplied. The implementation uses no delegated agents. At that stage,
+owner acceptance, independent review, publication authorization, and repository
+confirmation were pending. Subsequent owner disposition is recorded in
+\hyperref[Section:PublicationAuthorization]{publication authorization}. Technical examples from the template were not adopted as project artifacts.
+
+\section{Owner Identity Correction}
+\label{Section:OwnerIdentityCorrection}
+On November 12, 2026, \DocumentOwner\ supplied their name, organization
+\Organization, and email \href{mailto:\DocumentEmail}{\DocumentEmail}, and
+requested replacement of the generic owner fields. Codex updated the shared
+metadata, front matter, PDF author, ownership references, and
+\hyperref[Question:Q-01]{Q-01}. The change uses local branch
+\texttt{codex/update-owner-details}; publication and its pull request remain
+pending the owner's separate publication authorization at that time. Technical
+questions and product release decisions remain open; subsequent project
+acceptance is recorded below.
+
+\section{Publication Authorization}
+\label{Section:PublicationAuthorization}
+On November 12, 2026, \DocumentOwner\ stated: ``I accept the initialized
+project and authorize publication.'' The owner directed a source commit on
+main and push to the repository identified in
+\hyperref[Section:InitializationPublication]{the publication record}, with
+branches and pull requests for every later change. Codex records this actual
+human disposition and prepares the initial publication. It does not infer
+technical approvals or product release from this authorization.
+
+\section{Requirement Scope or Family Extension Record}
+When an AI-assisted change proposes a requirement scope or family that is not
+already defined, record the proposed uppercase code, full name, decision
+boundary, rationale, representative examples, semantic-overlap review,
+identifier-collision check, affected register and category-catalog changes, and
+the authorized human's approval or rejection. Do not assign an identifier from
+the proposed scope or family before approval.

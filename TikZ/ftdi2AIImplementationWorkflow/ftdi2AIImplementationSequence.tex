@@ -1,0 +1,63 @@
+\begin{tikzpicture}[
+  x=1cm,y=1cm,
+  participant/.style={draw=dsnBlue,fill=dsnLightBlue,rounded corners=2pt,
+    minimum width=2.15cm,minimum height=0.55cm,align=center,font=\footnotesize},
+  lifeline/.style={draw=dsnGray,densely dashed,line width=0.55pt},
+  msg/.style={-{Latex[length=1.8mm]},draw=dsnBlue,line width=0.65pt},
+  response/.style={-{Latex[length=1.8mm]},draw=dsnGray,dashed,line width=0.65pt},
+  note/.style={font=\scriptsize,fill=white,inner sep=1pt},
+  frame/.style={draw=dsnGray,rounded corners=2pt,line width=0.6pt}
+]
+  \node[participant] at (0,0) {Human owner};
+  \node[participant] at (2.8,0) {aiaCoordinator};
+  \node[participant] at (5.6,0) {aiaDeveloperA};
+  \node[participant] at (8.4,0) {aiaDeveloperB};
+  \node[participant] at (11.2,0) {aiaReviewer};
+  \foreach \x in {0,2.8,5.6,8.4,11.2}
+    \draw[lifeline] (\x,-0.35) -- (\x,-17.0);
+
+  \draw[msg] (0,-1.0) -- node[note,above] {task, authorization, limits} (2.8,-1.0);
+  \draw[msg] (2.8,-1.75) -- node[note,above] {material decision, if needed} (0,-1.75);
+  \draw[response] (0,-2.35) -- node[note,above] {decision or revised scope} (2.8,-2.35);
+
+  \node[draw=dsnBlue,fill=dsnLightBlue,rounded corners=2pt,
+    font=\scriptsize,align=center,minimum width=3.4cm]
+    (delegationDecision) at (2.8,-3.15) {Confirm Codex tools; select AI Skills\\estimate, partition, decide delegation};
+
+  \draw[frame] (1.45,-3.85) rectangle (9.7,-7.45);
+  \node[anchor=west,font=\scriptsize\bfseries,fill=white,inner sep=2pt]
+    at (1.6,-3.85) {opt: available tools + authorized independent work};
+  \draw[msg] (2.8,-4.5) -- node[note,above] {invoke: AI Skills, Context, task A} (5.6,-4.5);
+  \draw[msg] (2.8,-5.05) -- node[note,above] {invoke: AI Skills, Context, task B} (8.4,-5.05);
+  \draw[dsnGray,dotted] (1.65,-5.4) -- (9.5,-5.4);
+  \node[anchor=west,font=\scriptsize\itshape,fill=white,inner sep=1pt]
+    at (1.75,-5.4) {aiaDeveloper agents proceed concurrently in separate edit boundaries};
+  \draw[response] (5.6,-6.2) -- node[note,above] {changes and local checks} (2.8,-6.2);
+  \draw[response] (8.4,-6.85) -- node[note,above] {changes and local checks} (2.8,-6.85);
+
+  \node[draw=dsnBlue,fill=dsnLightBlue,rounded corners=2pt,
+    font=\scriptsize,align=center,minimum width=2.4cm]
+    at (2.8,-8.1) {Integrate and run\\complete checks};
+  \draw[frame] (1.45,-9.0) rectangle (5.2,-10.35);
+  \node[anchor=west,font=\scriptsize\bfseries,fill=white,inner sep=2pt]
+    at (1.6,-9.0) {loop: at most two corrections};
+  \draw[msg] (2.8,-9.55) -- ++(1.35,0) -- ++(0,-0.4) --
+    node[note,below] {correct and rerun checks} (2.8,-9.95);
+
+  \draw[frame] (-1.15,-10.75) rectangle (4.5,-12.9);
+  \node[anchor=west,font=\scriptsize\bfseries,fill=white,inner sep=2pt]
+    at (-1.0,-10.75) {opt: still failing or decision needed};
+  \draw[msg] (2.8,-11.3) -- node[note,above] {evidence and options} (0,-11.3);
+  \draw[response] (0,-11.85) -- node[note,above] {revise plan or stop} (2.8,-11.85);
+  \draw[msg] (0,-12.35) -- (-1.7,-12.35) -- (-1.7,-3.15) -- (delegationDecision.west);
+  \node[font=\scriptsize\itshape,fill=white,inner sep=1pt,rotate=90]
+    at (-1.7,-7.8) {revised plan};
+  \node[anchor=west,font=\scriptsize\itshape,fill=white,inner sep=1pt]
+    at (-0.9,-12.65) {stop: exit without review};
+
+  \draw[msg] (2.8,-13.6) -- node[note,above] {if checks pass: candidate and evidence} (11.2,-13.6);
+  \draw[response] (11.2,-14.25) -- node[note,above] {findings or review result} (2.8,-14.25);
+  \draw[msg] (2.8,-14.9) -- node[note,above] {candidate and validation plan} (0,-14.9);
+  \draw[response] (0,-15.65) -- node[note,above] {observations and disposition} (2.8,-15.65);
+  \draw[msg] (2.8,-16.4) -- node[note,above] {validation record and open issues} (0,-16.4);
+\end{tikzpicture}

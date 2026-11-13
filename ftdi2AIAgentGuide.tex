@@ -1,0 +1,816 @@
+\chapter{AI Agent Usage Guide}
+\ChapterLabel{AIAgentGuide}
+\index{AI agent}
+\index{AI agent!context routing}
+\index{AI agent!example prompts}
+\index{AI agent!human review}
+\index{AI agent!TikZ requirement}
+\index{Appendix!AI Agent Usage Guide}
+
+\section{Chapter Responsibility}
+\label{Section:AIAgentGuideResponsibility}
+Define the authoritative inputs and acceptance criteria for AI-assisted tasks.
+
+\noindent\textbf{Expected result:} A bounded task specification that an AI agent can follow and review.
+
+\section{How to Use This Appendix}
+This appendix is the entry point for an AI agent that creates, reviews, or
+maintains this architecture specification. The agent shall read this file
+first, identify the requested task in
+\hyperref[Table:AISkills]{the AI Skills Register}, and load only the
+authoritative sources and linked context listed for that task. It shall expand the context when a
+referenced dependency, cross-cutting decision, or inconsistency requires it.
+
+This appendix defines what each task requires: authoritative inputs,
+context, task-specific steps, and acceptance criteria. Use
+\ChapterRef{AIImplementationWorkflow} to execute those tasks, whether the
+output is an architecture document, analysis, code, tests, or evidence. That
+appendix owns planning, the agent-count decision, delegation, integration,
+verification, review, and validation handoffs. Its single-agent and delegated
+paths inherit this appendix's skill definitions and governing rules.
+Figure~\ref{Figure:AITaskExecutionActivity} shows the handoff to
+\ChapterRef{AIImplementationWorkflow} and the checks against this appendix's
+Acceptance and \hyperref[Table:AICompletionChecklist]{completion checklist}.
+
+This appendix replaces substantive AI-oriented Markdown instructions. A thin
+repository bootstrap may point an AI tool to this appendix, but its routing
+tables, context packs, task steps, prompts, and checklists are maintained only
+as LaTeX so they remain visible in the architecture book and versioned with the
+specification.
+
+\section{Governing Principles}
+\index{source of truth}
+The authored LaTeX files and editable diagram sources are the source of truth.
+TikZ is the required source format for diagrams.
+The generated PDF is a review artifact and shall not be edited directly. The
+agent shall preserve one authoritative location for each fact and use links
+instead of duplicating content across chapters.
+
+An AI agent is a drafting, analysis, consistency-checking, and build assistant.
+It shall use supplied project evidence, identify missing information, expose
+material assumptions, and distinguish proposals from approved decisions. It
+shall not invent requirements approval, implementation status, test results,
+verification evidence, validation evidence, waivers, or release authorization.
+
+\paragraph{Consistent terminology.}\label{Rule:AITerminologyConsistency}
+\index{AI agent!terminology consistency}
+Use one established term for each concept throughout requirements, prose,
+headings, tables, diagrams, prompts, code identifiers where applicable, and
+reports to the human owner. Reuse the user's chosen terms and the authoritative
+glossary or existing definitions. Do not introduce synonyms merely for variety,
+brevity, or stylistic preference. A different term shall represent a distinct
+concept; define that distinction before using it. When terminology conflicts or
+is ambiguous, identify the conflict and obtain clarification rather than
+silently choosing or inventing another term. Before reporting completion,
+check changed content for alternate names for the same concept and normalize
+them to the established term. Preserve external quotations and tool-mandated
+names; explain their mapping to project terms when needed.
+
+\begingroup\raggedright
+Use the prefix \texttt{aia} (AI agent) for AI agent role identifiers:
+\texttt{aiaCoordinator}, \texttt{aiaDeveloper}, and \texttt{aiaReviewer}.
+Parallel instances use \texttt{aiaDeveloperA}, \texttt{aiaDeveloperB}, and
+\texttt{aiaDeveloperC}. Human roles retain their human names without this
+prefix. These identifiers describe responsibilities; one agent may perform
+several roles. Use these names throughout prose, prompts, figures, and reports
+under \hyperref[Requirement:DOCAI004]{DOC-AI-004}; responsibilities are defined
+in \hyperref[Section:AIAgentRoles]{Responsibilities and Handoffs}.\par\endgroup
+Use the skill labels consistently: Context identifies what the agent needs
+to read; Steps identify what it must do; Acceptance identifies the criteria
+for completing the task. Use these same labels in the AI Skills Register and skill
+definitions. Do not substitute Guidance for Context or Procedure for Steps.
+Steps and Acceptance are distinct concepts and shall not be presented as
+synonyms.
+
+\paragraph{Linked architecture references.}\label{Rule:AIReferenceLinks}
+\index{AI agent!linked references}
+An AI agent editing the architecture shall satisfy
+\hyperref[Requirement:DOCAI003]{DOC-AI-003}: link every reference to an
+existing AI skill, Context, Steps, Acceptance, requirement, figure, table,
+section, or chapter to its authoritative definition. A skill reference
+shall link to that AIS's individual row in
+\hyperref[Table:AISkills]{Table~\ref{Table:AISkills}}, rather than
+only to the table as a whole. Each row shall link to the skill definition and
+its Context, Steps, and Acceptance; the skill definition shall link back to
+its row. Preserve readable reference text and stable labels. Literal prompts,
+code, and external quotations may retain plain text, with linked references
+in the surrounding prose. For all defined architecture artifacts, also apply \hyperref[Requirement:DOCLINK001]{DOC-LINK-001}; class and interface references target their individual class-responsibility rows. Before reporting completion, check both navigation
+directions in the built PDF and resolve missing or incorrect targets.
+
+\section{AI Quick Start}
+\label{Section:AIQuickStart}
+\index{AI agent!quick start}
+
+\begin{enumerate}
+\item Read this appendix and identify the requested outcome.
+\item Before creating or renaming a project-owned file, ask for or confirm the
+project file namespace. Do not invent it; use the confirmed namespace for every
+file created during the task.
+\item Inspect \hyperref[Table:ProjectDomainProfiles]{the domain-profile
+applicability table} and \hyperref[Table:ProjectDomainProfiles]{the project
+profile decisions}. Ask an authorized human to resolve any unreviewed profile
+selection. Load every Applicable or TBD profile affected by the task.
+\item Select the closest entry in
+\hyperref[Table:AISkills]{the AI Skills Register}.
+\item Read the primary files and context explicitly linked for each selected
+AI Skill (AIS). A request may require more than one AIS. Read
+\texttt{ftdi2Manual.tex} when document metadata, macros, inclusion order, or
+build structure is affected.
+\item For substantial or delegated work, apply AI skill \hyperref[Skill:AIS-01]{\texttt{AIS-01}}
+and its \hyperref[Section:AIPlanningEstimateContext]{planning and estimation
+context} before starting the change.
+\item Inspect available project evidence and report conflicts, missing facts,
+and consequential assumptions. Ask for a human decision when an answer would
+materially change scope, architecture, safety, security, cost, schedule, or
+release readiness.
+\item Make narrowly scoped changes in the authoritative files. Preserve stable
+IDs and update every affected reciprocal mapping.
+\item Add a linked document-history entry for an approved document change and
+record material AI interactions in \ChapterRef{AIPromptLog}.
+\item Execute the selected task steps using
+\ChapterRef{AIImplementationWorkflow}, including its decision about one or
+multiple agents. For document changes, run the complete build, inspect the log,
+render affected PDF pages, and
+complete \hyperref[Table:AICompletionChecklist]{the completion checklist}.
+\end{enumerate}
+
+\section{Repository AI Bootstrap}
+\label{Section:AIRepositoryBootstrap}
+\index{AI agent!repository bootstrap}
+\index{AGENTS.md}
+\index{CLAUDE.md}
+\index{SKILL.md}
+
+The LaTeX architecture is authoritative, but an AI tool may require a
+repository-level discovery file before it knows where to find these
+instructions. Create a thin bootstrap file for each AI tool that the project
+actually uses. The bootstrap shall point to this chapter and the relevant
+LaTeX sources; it shall not reproduce their requirements, workflows, or
+architectural decisions. When policy changes, update the authoritative LaTeX
+source rather than copying the change into each bootstrap file.
+
+Tool-mandated discovery names are documented exceptions to the project file
+namespace requirement. This exception applies only to the exact filename or
+location required for discovery. It does not exempt files created while
+performing the instructed work from the namespace requirements in
+\hyperref[Table:DocumentAuthoringRequirements]{the document-authoring
+requirements}.
+
+Create only the applicable files:
+
+\footnotesize
+\begin{tabularx}{\linewidth}{L{4.5cm}Y}
+\caption{Repository AI Bootstrap Files\label{Table:AIRepositoryBootstrapFiles}}\\
+\toprule
+\textbf{File} & \textbf{When to Create It}\\
+\midrule
+\endfirsthead
+\multicolumn{2}{l}{\small\itshape Repository AI Bootstrap Files (continued)}\\
+\toprule
+\textbf{File} & \textbf{When to Create It}\\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+\texttt{AGENTS.md} & The repository is maintained with Codex or another agent
+that discovers this filename.\\
+\texttt{CLAUDE.md} & The repository is maintained with Claude Code.\\
+\texttt{.github/copilot-}\newline\texttt{instructions.md} & The repository uses repository-wide
+GitHub Copilot instructions.\\
+\texttt{SKILL.md} & Reusable AI Skills are defined in this LaTeX manual; see
+\hyperref[Table:AISkills]{the AI Skills Register in Table~\ref{Table:AISkills}}.
+The template includes one generic skill file that directs the agent to this
+register.\\
+\end{tabularx}
+\normalsize
+
+\paragraph{AI Skills and tasks.}
+An AI Skill (AIS) is a reusable definition of Context, Steps, and Acceptance.
+A task is a specific assignment that uses one or more AI Skills in a project
+context. Table~\ref{Table:AISkills} is the AI Skills Register; no separate
+register of task assignments is required by this template.
+The template's generic \texttt{SKILL.md} provides a skill name and a description
+of when to use this manual, then directs the agent to
+\hyperref[Table:AISkills]{the AI Skills Register}. The agent selects the
+applicable AIS and reads its linked Context, Steps, and Acceptance, then
+executes through \ChapterRef{AIImplementationWorkflow}. Keep the definitions
+in LaTeX authoritative; the skill file shall not duplicate them.
+
+The template stores \texttt{SKILL.md} beside \texttt{AGENTS.md} and
+\texttt{CLAUDE.md}. Both bootstrap files explicitly direct the agent to read
+\texttt{SKILL.md}, which then points to this guide and the AI Skills Register.
+This repository flow does not require separate skill installation. Storing
+\texttt{SKILL.md} at the template root alone does not register it for automatic
+skill discovery; the explicit bootstrap pointer provides the reading route.
+
+Each bootstrap file shall identify the root architecture source, point to this
+chapter, require task-appropriate context loading through
+\hyperref[Table:AISkills]{the AI Skills Register}, direct architecture
+policy changes back to LaTeX, and point to \ChapterRef{DocumentGuide} for
+building and verification. It shall also state the confirmed project file
+namespace or direct the agent to obtain it before creating project-owned files.
+Use the following content as a minimal tool-neutral pattern, adapting only the
+discovery-specific wrapper:
+
+\begin{verbatim}
+# AI Instructions
+
+The authoritative software architecture is maintained in
+ftdi2Manual.tex. Before architecture-related work, read SKILL.md.
+Follow its pointer to ftdi2AIAgentGuide.tex and use the
+AI Skills Register to identify
+the
+additional LaTeX chapters and linked task steps required for
+the task. Execute using ftdi2AIImplementationWorkflow.tex.
+
+Treat the authored LaTeX and editable diagram sources as the
+source
+of truth. Do not duplicate their requirements, conventions,
+workflows, or architectural decisions in this file. When policy
+changes, update the authoritative LaTeX source.
+
+Before creating project-owned files, obtain or confirm the
+project
+namespace required by ftdi2DocumentGuide.tex. Follow that guide's
+build and verification instructions before completing the task.
+\end{verbatim}
+
+\section{Guide Activity}
+\label{Section:AIGuideActivity}
+\index{AI agent!guide activity}
+Figure~\ref{Figure:AIGuideActivity} starts with the AI tool's repository
+bootstrap: \texttt{CLAUDE.md} for Claude Code or \texttt{AGENTS.md} for
+Codex. Both branches then direct the agent to read the same generic
+\texttt{SKILL.md}. That file points to this guide and the AI Skills Register.
+The tool choice precedes this shared route; \texttt{SKILL.md} is not a third
+choice. Both branches use the same AIS definitions and Appendix D workflow.
+The selected AIS rows provide explicit source, Context, Steps, and Acceptance
+links; a context pack
+is the linked reading context within this appendix, not an automatically
+loaded tool feature. Apply the shared rules above Table~\ref{Table:AISkills}
+and expand the reading set when an affected dependency requires it.
+
+\begin{figure}[htbp]
+  \centering
+  \input{TikZ/ftdi2AIAgentGuide/ftdi2AIGuideActivity.tex}
+  \caption{AI agent activity from repository instructions through the generic
+  skill, AIS selection, Context, Steps, Acceptance, and execution.}
+  \label{Figure:AIGuideActivity}
+\end{figure}
+
+\section{AI Skills Register}
+\index{AI agent!skill selection}
+The file lists below are minimum starting contexts, not permission to ignore a
+dependency discovered during the task. A task that changes an artifact shall
+also inspect every register that contains a reciprocal mapping to that
+artifact. The \texttt{AIS-} prefix means AI Skill. These identifiers
+name reusable AI skills in this table, not individual assignments. Do not
+renumber or reuse them when the table changes.
+
+Each row links Context, Steps, and Acceptance separately. The Steps and
+Acceptance links use the skill subsection names and point to the corresponding
+headings within those subsections. Read all three with the listed sources. Execute selected tasks using \ChapterRef{AIImplementationWorkflow}.
+For every task, apply \hyperref[Section:AIConsistencyRules]{the mandatory
+consistency rules}. For document edits or builds, also read
+\hyperref[Section:AIDocumentContext]{Document-Authoring Context}. For
+substantial or delegated work, first apply \hyperref[Skill:AIS-01]{\texttt{AIS-01}}. When a selected
+profile's concerns intersect the work, also read
+\hyperref[Section:AIDomainContext]{Domain-Profile Context}. If the request
+changes several artifact types, select each corresponding AIS and read the
+union of its sources and linked context. Report an unmatched task and its
+proposed reading set before proceeding with consequential work.
+
+\small
+\begin{tabularx}{\linewidth}{L{1.6cm}L{3.1cm}Y}
+\caption{AI Skills Register\label{Table:AISkills}}\\
+\toprule
+\textbf{ID} & \textbf{AI Skill} & \textbf{Authoritative Sources, Context, Steps, and Acceptance}\\
+\midrule
+\endfirsthead
+\multicolumn{3}{l}{\small\itshape AI Skills Register (continued)}\\
+\toprule
+\textbf{ID} & \textbf{AI Skill} & \textbf{Authoritative Sources, Context, Steps, and Acceptance}\\
+\midrule
+\endhead
+\midrule
+\multicolumn{3}{r}{\small\itshape Continued on next page}\\
+\endfoot
+\bottomrule
+\endlastfoot
+\phantomsection\label{Skill:AIS-01}\hyperref[Section:AIEstimateSteps]{\texttt{AIS-01}} & Estimate AI work & The request, applicable project instructions,
+this guide, \ChapterRef{AIImplementationWorkflow}, the affected artifact list, dependencies, and available evidence.\par\textbf{Context:} \hyperref[Section:AIPlanningEstimateContext]{Planning and Estimation}.\par\textbf{Steps:} \hyperref[Section:AIEstimateTaskSteps]{Estimate AI Work}.\par\textbf{Acceptance:} \hyperref[Section:AIEstimateAcceptance]{Estimate AI Work}.\\
+\phantomsection\label{Skill:AIS-02}\hyperref[Section:AIInitializeSteps]{\texttt{AIS-02}} & Initialize a project & \texttt{ftdi2Manual.tex}, \texttt{ftdi2Prologue.tex}, \texttt{ftdi2Introduction.tex}, \texttt{ftdi2DevelopmentPlan.tex}, \texttt{ftdi2SystemContext.tex}, each proposed or selected domain profile, and the supplied project evidence.\par\textbf{Context:} \hyperref[Section:AIDomainContext]{Domain-Profile}; \hyperref[Section:InitializeNewProject]{Project initialization}.\par\textbf{Steps:} \hyperref[Section:AIInitializeTaskSteps]{Initialize a Project}.\par\textbf{Acceptance:} \hyperref[Section:AIInitializeAcceptance]{Initialize a Project}.\\
+\phantomsection\label{Skill:AIS-03}\hyperref[Section:AIEmbeddedSteps]{\texttt{AIS-03}} & Tailor an embedded system & \texttt{ftdi2EmbeddedSystemsProfile.tex},
+\texttt{ftdi2DevelopmentPlan.tex}, \texttt{ftdi2SystemContext.tex},
+\texttt{ftdi2Requirements.tex}, the affected architecture and interface
+chapters, \texttt{ftdi2Tests.tex}, \texttt{ftdi2Traceability.tex}, and the
+controlled hardware and project evidence.\par\textbf{Context:} \hyperref[Section:AIDomainContext]{Domain-Profile}. Select additional artifact AI Skills for the chapters being changed.\par\textbf{Steps:} \hyperref[Section:AIEmbeddedTaskSteps]{Tailor an Embedded System}.\par\textbf{Acceptance:} \hyperref[Section:AIEmbeddedAcceptance]{Tailor an Embedded System}.\\
+\phantomsection\label{Skill:AIS-04}\hyperref[Section:AIBootstrapSteps]{\texttt{AIS-04}} & Create repository AI bootstrap files & \texttt{ftdi2AIAgentGuide.tex},
+\texttt{ftdi2DocumentGuide.tex}, \texttt{ftdi2Manual.tex}, evidence identifying the
+AI tools used by the project, and each tool's required discovery filename.\par\textbf{Context:} \hyperref[Section:AIRepositoryBootstrap]{Repository AI Bootstrap}.\par\textbf{Steps:} \hyperref[Section:AIBootstrapTaskSteps]{Create Repository AI Bootstrap Files}.\par\textbf{Acceptance:} \hyperref[Section:AIBootstrapAcceptance]{Create Repository AI Bootstrap Files}.\\
+\phantomsection\label{Skill:AIS-05}\hyperref[Section:AIStorySteps]{\texttt{AIS-05}} & Develop user stories & \texttt{ftdi2SystemContext.tex}, \texttt{ftdi2UserStories.tex}, \texttt{ftdi2Requirements.tex}, and stakeholder evidence.\par\textbf{Context:} \hyperref[Section:AIUserStoryContext]{User-Story}.\par\textbf{Steps:} \hyperref[Section:AIStoryTaskSteps]{Develop User Stories}.\par\textbf{Acceptance:} \hyperref[Section:AIStoryAcceptance]{Develop User Stories}.\\
+\phantomsection\label{Skill:AIS-06}\hyperref[Section:AIRequirementSteps]{\texttt{AIS-06}} & Add or change requirements & \texttt{ftdi2UserStories.tex}, \texttt{ftdi2Requirements.tex}, every Applicable or TBD domain profile, \texttt{ftdi2UseCases.tex}, \texttt{ftdi2Tests.tex}, \texttt{ftdi2Traceability.tex}, \texttt{ftdi2Verification.tex}, and \texttt{ftdi2Glossary.tex}.\par\textbf{Context:} \hyperref[Section:AIRequirementsContext]{Requirements}.\par\textbf{Steps:} \hyperref[Section:AIRequirementTaskSteps]{Add or Change a Requirement}.\par\textbf{Acceptance:} \hyperref[Section:AIRequirementAcceptance]{Add or Change a Requirement}.\\
+\phantomsection\label{Skill:AIS-07}\hyperref[Section:AIUseCaseSteps]{\texttt{AIS-07}} & Add or change use cases & \texttt{ftdi2UserStories.tex}, \texttt{ftdi2Requirements.tex}, \texttt{ftdi2UseCases.tex}, \texttt{ftdi2Tests.tex}, and \texttt{ftdi2Traceability.tex}.\par\textbf{Context:} \hyperref[Section:AIUseCaseContext]{Use-Case}.\par\textbf{Steps:} \hyperref[Section:AIUseCaseTaskSteps]{Add or Change a Use Case}.\par\textbf{Acceptance:} \hyperref[Section:AIUseCaseAcceptance]{Add or Change a Use Case}.\\
+\phantomsection\label{Skill:AIS-08}\hyperref[Section:AIArchitectureSteps]{\texttt{AIS-08}} & Develop or change architecture & \texttt{ftdi2SystemContext.tex}, \texttt{ftdi2Requirements.tex}, \texttt{ftdi2ArchitectureOverview.tex}, the affected interface, logical, process, development, physical, or implementation chapters, and their \texttt{TikZ/} diagram sources.\par\textbf{Context:} \hyperref[Section:AIArchitectureContext]{Architecture}.\par\textbf{Steps:} \hyperref[Section:AIArchitectureTaskSteps]{Develop or Change Architecture}.\par\textbf{Acceptance:} \hyperref[Section:AIArchitectureAcceptance]{Develop or Change Architecture}.\\
+\phantomsection\label{Skill:AIS-09}\hyperref[Section:AITestSteps]{\texttt{AIS-09}} & Add or change tests & \texttt{ftdi2Requirements.tex}, \texttt{ftdi2UseCases.tex}, \texttt{ftdi2Tests.tex}, \texttt{ftdi2Traceability.tex}, \texttt{ftdi2Verification.tex}, and \texttt{ftdi2TestEvidence.tex}.\par\textbf{Context:} \hyperref[Section:AITestingContext]{Testing and Evidence}.\par\textbf{Steps:} \hyperref[Section:AITestTaskSteps]{Add Tests or Evidence}.\par\textbf{Acceptance:} \hyperref[Section:AITestAcceptance]{Add Tests or Evidence}.\\
+\phantomsection\label{Skill:AIS-10}\hyperref[Section:AIVerificationSteps]{\texttt{AIS-10}} & Perform verification & \texttt{ftdi2Requirements.tex}, \texttt{ftdi2Tests.tex}, \texttt{ftdi2Traceability.tex}, \texttt{ftdi2Verification.tex}, and controlled test evidence.\par\textbf{Context:} \hyperref[Section:AITestingContext]{Testing and Evidence}.\par\textbf{Steps:} \hyperref[Section:AIVerificationTaskSteps]{Perform Verification}.\par\textbf{Acceptance:} \hyperref[Section:AIVerificationAcceptance]{Perform Verification}.\\
+\phantomsection\label{Skill:AIS-11}\hyperref[Section:AIValidationSteps]{\texttt{AIS-11}} & Perform validation & \texttt{ftdi2UserStories.tex}, \texttt{ftdi2UseCases.tex}, \texttt{ftdi2Validation.tex}, and controlled stakeholder evidence.\par\textbf{Context:} \hyperref[Section:AITestingContext]{Testing and Evidence}.\par\textbf{Steps:} \hyperref[Section:AIValidationTaskSteps]{Perform Validation}.\par\textbf{Acceptance:} \hyperref[Section:AIValidationAcceptance]{Perform Validation}.\\
+\phantomsection\label{Skill:AIS-12}\hyperref[Section:AIReleaseSteps]{\texttt{AIS-12}} & Prepare a release & \texttt{ftdi2Requirements.tex}, \texttt{ftdi2Traceability.tex}, \texttt{ftdi2Verification.tex}, \texttt{ftdi2Validation.tex}, \texttt{ftdi2Release.tex}, and controlled release evidence.\par\textbf{Context:} \hyperref[Section:AIReleaseContext]{Release}.\par\textbf{Steps:} \hyperref[Section:AIReleaseTaskSteps]{Review and Prepare a Release}.\par\textbf{Acceptance:} \hyperref[Section:AIReleaseAcceptance]{Review and Prepare a Release}.\\
+\phantomsection\label{Skill:AIS-13}\hyperref[Section:AIConsistencySteps]{\texttt{AIS-13}} & Review consistency & All registers containing the affected artifact types, \texttt{ftdi2Glossary.tex}, \texttt{ftdi2DocumentHistory.tex}, and \texttt{ftdi2Manual.tex}.\par\textbf{Context:} \hyperref[Section:AIConsistencyRules]{Mandatory Consistency Rules}.\par\textbf{Steps:} \hyperref[Section:AIConsistencyTaskSteps]{Review Consistency}.\par\textbf{Acceptance:} \hyperref[Section:AIConsistencyAcceptance]{Review Consistency}.\\
+\phantomsection\label{Skill:AIS-14}\hyperref[Section:AIBuildSteps]{\texttt{AIS-14}} & Compile or troubleshoot & \texttt{ftdi2Manual.tex}, \texttt{ftdi2DocumentGuide.tex}, the affected chapter, its diagram sources, and the build log.\par\textbf{Context:} \hyperref[Section:AIDocumentContext]{Document-Authoring}.\par\textbf{Steps:} \hyperref[Section:AIBuildTaskSteps]{Compile or Troubleshoot}.\par\textbf{Acceptance:} \hyperref[Section:AIBuildAcceptance]{Compile or Troubleshoot}.\\
+\end{tabularx}
+\normalsize
+
+\section{Task-Specific Context Packs}
+\index{AI agent!context pack}
+A context pack is a reading boundary within this appendix, not a separate file.
+Read the packs explicitly linked in the selected AI Skills Register entries. The
+shared applicability rules above the table identify additional packs required
+by the scope of the work; do not select a pack solely by guessing from its title.
+
+\subsection{Planning and Estimation Context}
+\label{Section:AIPlanningEstimateContext}
+For substantial or delegated work, identify the intended outcome, affected
+artifacts, acceptance criteria, dependencies, missing facts, and likely
+integration and review effort before starting implementation. Give a rough
+effort and token-use range for each proposed bounded task, with the assumptions
+and uncertainty behind it. Compare sequential and parallel execution,
+including coordination overhead. Do not present token counts as precise or
+guaranteed. Follow project instructions for obtaining human authorization
+before unusually costly work.
+
+\subsection{Domain-Profile Context}
+\label{Section:AIDomainContext}
+Determine the Applicable, Not Applicable, or TBD status of every available
+domain profile during initialization. An authorized human shall approve the
+selection and rationale. For later tasks, load every Applicable or TBD profile
+whose concerns intersect the requested change. A profile adds review concerns
+and artifact expectations; project-specific facts remain in their authoritative
+core chapters. When the Embedded Systems profile applies, follow
+\ChapterRef{EmbeddedSystemsProfile} and add hardware, firmware, timing,
+resource, power, physical-interface, safety, security, manufacturing, update,
+and field-service concerns to the task context. For requirements work, apply
+the controlled translation rule in
+Section~\ref{Section:DomainProfileRequirements}: each applicable profile
+concern shall map to a requirement, an existing requirement, or an approved
+Not Applicable decision with rationale.
+
+\subsection{User-Story Context}
+\label{Section:AIUserStoryContext}
+Use stakeholder evidence to identify the beneficiary, desired outcome, and
+acceptance criteria. Follow \ChapterRef{UserStories} for stable IDs, priority,
+and requirement links. Keep precise binding obligations in Requirements and
+maintain reciprocal story links in traceability.
+
+\subsection{Requirements Context}
+\label{Section:AIRequirementsContext}
+Establish the system boundary and stakeholder need before proposing a
+requirement. Keep each requirement singular, feasible, unambiguous, and
+verifiable. Apply the identifier grammar and family definitions in
+Section~\ref{Section:RequirementIdentifierConvention}. Classify its primary
+family or subtype, write binding behavior with
+\textbf{shall}, assign one \gls{must}, \gls{should}, \gls{could}, or
+\gls{would} priority, assign one lifecycle status, and map it to at least one
+use case and one test case. A requirement may be marked Done only when its
+mapped tests pass, verification is complete, traceability is current, and a
+controlled implementation version is known. Evaluate every Applicable or TBD
+domain profile that intersects the proposed change and follow
+Section~\ref{Section:DomainProfileRequirements} before completing the
+requirements work.
+
+\subsection{Use-Case Context}
+\label{Section:AIUseCaseContext}
+Start from an actor goal and a system boundary. Give each use case its own
+table, identify participating actors, preconditions, trigger, success outcome,
+main flow, alternate and exception flows, postconditions, mapped requirements,
+and mapped tests. Describe externally observable interaction rather than
+internal implementation detail. Maintain reciprocal mappings to every related
+requirement.
+
+\subsection{Architecture Context}
+\label{Section:AIArchitectureContext}
+Trace each architectural decision to requirements, quality attributes,
+constraints, risks, and interfaces. Identify alternatives and explain the
+trade-off that selected the proposed structure. Keep the context, logical,
+process, development, physical, interface, and implementation views consistent.
+Use TikZ for diagrams.
+Store each TikZ source under its owning chapter as required by
+Section~\ref{Section:TikZAuthoring}, include it from that chapter, and compile
+the PDF.
+
+\subsection{Testing and Evidence Context}
+\label{Section:AITestingContext}
+Derive tests from requirements and use cases. Define preconditions, inputs,
+procedure, expected result, and retained evidence. A test definition is not a
+test result. Verification records objective compliance with requirements;
+validation records whether stakeholder needs are satisfied in intended use.
+Never create passing evidence or approval from an expected result.
+
+\subsection{Release Context}
+\label{Section:AIReleaseContext}
+Review open, in-progress, done, and retired requirements; unresolved defects;
+verification and validation results; operational readiness; migration and
+rollback provisions; known limitations; and required approvals. Report a gap
+instead of treating missing evidence as acceptance. Only an authorized human
+may approve release.
+
+\subsection{Document-Authoring Context}
+\label{Section:AIDocumentContext}
+Follow \ChapterRef{DocumentGuide} for file naming, LaTeX conventions, diagrams,
+installation, and builds. Update the glossary and index when introducing a
+controlled term. Update document history with a link to the changed location.
+Before creating or renaming a project-owned file, ask for or confirm the
+project file namespace and apply it consistently in accordance with
+\hyperref[Table:DocumentAuthoringRequirements]{the document-authoring
+requirements}.
+External source references, including footnotes, shall use BibTeX citations
+in accordance with \hyperref[Requirement:DOCBIB001]{DOC-BIB-001} and
+\hyperref[Section:DocumentBibliography]{Citations and Bibliography}.
+Every TikZ source shall satisfy the path, inclusion, caption, label, and
+reference requirements in Section~\ref{Section:TikZAuthoring} and connector-layout rule \hyperref[Requirement:DOCTIKZ002]{DOC-TIKZ-002}. Do not edit
+generated auxiliary files or the PDF directly.
+
+\section{Mandatory Consistency Rules}
+\label{Section:AIConsistencyRules}
+\index{AI agent!consistency rules}
+
+\begin{enumerate}
+\item Preserve every stable ID. Do not reuse an ID belonging to a retired or
+deleted proposal.
+\item Use the scope and family codes in
+Section~\ref{Section:RequirementIdentifierConvention}. Before using an
+undefined scope or family, propose its code, name, boundary, rationale, and
+examples; check for semantic overlap and identifier collision; obtain
+authorized-human approval; and update the convention, category catalog, this
+guide, and the applicable register. Do not rename existing IDs when extending
+the convention.
+\item Use \textbf{shall} for binding requirements. Use priority terms only in
+the Priority field and with the definitions in the glossary.
+\item Give every requirement a priority, status, In Version value, use-case
+mapping, and test-case mapping.
+\item Enter \NoVersion\ when a requirement is not Done and no completed
+implementation version applies.
+\item Maintain reciprocal mappings among user stories, requirements, use
+cases, tests, traceability, verification, and validation.
+\item Do not copy one controlled statement into several authoritative
+locations. Link to its stable ID.
+\item Retain retired requirements and their history. Record the rationale and
+replacement when applicable.
+\item Use project evidence for factual claims. Label an unsupported suggestion
+as a proposal and report the evidence needed to decide it.
+\item Record each domain profile as Applicable, Not Applicable, or TBD with an
+authorized decision and rationale. Load every Applicable or relevant TBD
+profile; do not duplicate project facts in the profile appendix.
+\item Before creating or renaming any project-owned file, ask for or confirm
+the project \texttt{\textless nameSpace\textgreater}; do not invent it. Prefix
+every new project-owned file name with the confirmed namespace.
+\item Use TikZ for every diagram. Every TikZ source shall use the directory
+\begin{center}
+\texttt{TikZ/\textless includingFileBaseName\textgreater/}
+\end{center}
+and shall be named \path|<nameSpace><DrawingName>.tex|. The directory shall exactly match the base
+name of the LaTeX file containing its \verb|\input| command. The including
+chapter shall place it in a
+numbered figure, add a descriptive caption and stable label, and reference the
+figure in its text. Apply the connector-routing and label-clearance rule \hyperref[Requirement:DOCTIKZ002]{DOC-TIKZ-002}.
+\item Apply \hyperref[Rule:AIReferenceLinks]{the linked architecture references rule}
+and \hyperref[Requirement:DOCAI003]{DOC-AI-003}; check links to authoritative
+definitions, including each AIS row and its Context, Steps, and Acceptance.
+\item Link every document-history entry to the location where the change
+occurred.
+\item Compile after structural, cross-reference, glossary, index, diagram, or
+table changes and visually inspect the affected pages.
+\end{enumerate}
+
+\section{Skill-Specific Steps and Acceptance}
+\label{Section:AIArchitectureWorkflow}
+\index{AI agent!task steps}
+The skill definitions below provide Context, Steps, and Acceptance, not an agent count or a second
+execution workflow. Table~\ref{Table:AISkills} links each AIS to its
+context, task steps, and acceptance criteria. Apply the shared execution workflow in
+\ChapterRef{AIImplementationWorkflow}; an AIS may be assigned to one agent or
+partitioned among several agents under that workflow. The criteria below
+concern completion of the assigned task, not human approval of a baseline or
+release. Also apply \hyperref[Table:AICompletionChecklist]{the completion checklist}.
+
+\subsection{Estimate AI Work}
+\label{Section:AIEstimateSteps}
+\noindent\textbf{AI Skill:} \hyperref[Skill:AIS-01]{\texttt{AIS-01}}.
+
+\subsubsection*{Steps}
+\label{Section:AIEstimateTaskSteps}
+Read \hyperref[Section:AIPlanningEstimateContext]{Planning and Estimation Context}. Identify affected artifacts and acceptance criteria, split the work into bounded assignments, and estimate effort and token ranges with assumptions. Compare sequential execution with delegation, including integration and review cost.
+
+\subsubsection*{Acceptance}
+\label{Section:AIEstimateAcceptance}
+The estimate identifies uncertainties, dependencies, ownership, and a justified execution recommendation; any required authorization is obtained before dependent costly work.
+
+\subsection{Initialize a Project}
+\label{Section:AIInitializeSteps}
+\noindent\textbf{AI Skill:} \hyperref[Skill:AIS-02]{\texttt{AIS-02}}.
+
+\subsubsection*{Steps}
+\label{Section:AIInitializeTaskSteps}
+Ask an authorized human for the project file namespace, or confirm an already
+configured namespace, before creating or renaming files. Do not invent it.
+Replace \verb|\FileNamespace|, project metadata, and bracketed placeholders
+only from supplied facts, then apply the namespace to every new project-owned
+file.
+Identify available domain profiles and ask an authorized human to confirm each
+profile's applicability. Record the decisions in
+\hyperref[Table:ProjectDomainProfiles]{the project profile table}. Include each
+Applicable or TBD profile in the initialization context; remove an
+inapplicable profile appendix only after its decision is recorded.
+Create a gap list covering purpose, scope, stakeholders, system boundary,
+interfaces, constraints, quality attributes, risks, evidence, and approvals.
+Resolve consequential gaps before developing detailed artifacts. Work in
+dependency order from context and needs through requirements, use cases,
+architecture, tests, evidence, and release.
+
+\subsubsection*{Acceptance}
+\label{Section:AIInitializeAcceptance}
+Project metadata is supported, profile decisions are recorded, and unresolved facts remain explicit gaps rather than invented content.
+
+\subsection{Tailor an Embedded System}
+\label{Section:AIEmbeddedSteps}
+\noindent\textbf{AI Skill:} \hyperref[Skill:AIS-03]{\texttt{AIS-03}}.
+
+\subsubsection*{Steps}
+\label{Section:AIEmbeddedTaskSteps}
+Review the approved profile selection and controlled hardware evidence. Map affected profile concerns to their core artifacts, identify gaps, and select the additional AI Skills needed for requirements, architecture, tests, or evidence.
+
+\subsubsection*{Acceptance}
+\label{Section:AIEmbeddedAcceptance}
+Applicable concerns are covered or have approved Not Applicable dispositions; project facts remain in their authoritative chapters and hardware assumptions are explicit.
+
+\subsection{Create Repository AI Bootstrap Files}
+\label{Section:AIBootstrapSteps}
+\noindent\textbf{AI Skill:} \hyperref[Skill:AIS-04]{\texttt{AIS-04}}.
+
+\subsubsection*{Steps}
+\label{Section:AIBootstrapTaskSteps}
+Follow the \hyperref[Section:AIRepositoryBootstrap]{Repository AI Bootstrap} steps, confirm tools and namespace, and create only applicable discovery files pointing to the task guide and shared execution workflow.
+
+\subsubsection*{Acceptance}
+\label{Section:AIBootstrapAcceptance}
+Discovery filenames match the confirmed tools; pointers resolve and substantive policy remains in the LaTeX sources.
+
+\subsection{Develop User Stories}
+\label{Section:AIStorySteps}
+\noindent\textbf{AI Skill:} \hyperref[Skill:AIS-05]{\texttt{AIS-05}}.
+
+\subsubsection*{Steps}
+\label{Section:AIStoryTaskSteps}
+Read stakeholder evidence and the \hyperref[Section:AIUserStoryContext]{User-Story Context}. Draft beneficiary, goal, value, acceptance criteria, priority, and stable links to requirements. Identify unresolved stakeholder questions.
+
+\subsubsection*{Acceptance}
+\label{Section:AIStoryAcceptance}
+Each changed story meets the \hyperref[Chapter:UserStories]{User Stories} review rules and has reciprocal traceability; proposed needs remain distinguishable from approved needs.
+
+\subsection{Add or Change a Requirement}
+\label{Section:AIRequirementSteps}
+\noindent\textbf{AI Skill:} \hyperref[Skill:AIS-06]{\texttt{AIS-06}}.
+
+\subsubsection*{Steps}
+\label{Section:AIRequirementTaskSteps}
+Identify the originating need and affected use cases. Draft a singular
+verifiable obligation, select its scope, primary family, priority, and status,
+and assign a stable ID using
+Section~\ref{Section:RequirementIdentifierConvention}. If no defined scope or
+family fits, complete the proposal and human-approval procedure before
+assigning the ID. Add or update mapped use cases and tests, then update
+traceability and verification. Confirm every link in both directions and add a
+linked history entry.
+
+\subsubsection*{Acceptance}
+\label{Section:AIRequirementAcceptance}
+Each changed requirement satisfies the \hyperref[Section:AIRequirementsContext]{Requirements Context} and has complete reciprocal mappings; unsupported approvals and implementation status are absent.
+
+\subsection{Add or Change a Use Case}
+\label{Section:AIUseCaseSteps}
+\noindent\textbf{AI Skill:} \hyperref[Skill:AIS-07]{\texttt{AIS-07}}.
+
+\subsubsection*{Steps}
+\label{Section:AIUseCaseTaskSteps}
+Identify the actor goal, system boundary, and mapped requirements. Complete one
+use-case table with success, alternate, and exception behavior. Add mapped
+tests, update requirement mappings and traceability, and confirm that no flow
+introduces an unrecorded requirement.
+
+\subsubsection*{Acceptance}
+\label{Section:AIUseCaseAcceptance}
+Each changed use case has complete actor flows, outcomes, requirement links, and test links, with no unrecorded obligation.
+
+\subsection{Develop or Change Architecture}
+\label{Section:AIArchitectureSteps}
+\noindent\textbf{AI Skill:} \hyperref[Skill:AIS-08]{\texttt{AIS-08}}.
+
+\subsubsection*{Steps}
+\label{Section:AIArchitectureTaskSteps}
+Identify the requirements and quality attributes that drive the decision.
+Describe alternatives, trade-offs, risks, interfaces, and the selected
+structure. Update every affected architectural view and diagram. Confirm that
+the proposed design neither omits a driving requirement nor silently adds an
+unapproved constraint.
+
+\subsubsection*{Acceptance}
+\label{Section:AIArchitectureAcceptance}
+The decision is traced to its drivers, alternatives and risks are recorded, and affected views and interfaces agree.
+
+\subsection{Add Tests or Evidence}
+\label{Section:AITestSteps}
+\noindent\textbf{AI Skill:} \hyperref[Skill:AIS-09]{\texttt{AIS-09}}.
+
+\subsubsection*{Steps}
+\label{Section:AITestTaskSteps}
+Derive each test from mapped requirements and use-case flows. Define repeatable
+steps and objective expected results. Link retained evidence only after an
+actual execution. Update verification or validation records without converting
+an expected outcome into a claimed result.
+
+\subsubsection*{Acceptance}
+\label{Section:AITestAcceptance}
+Test definitions are repeatable and linked; expected outcomes are distinguished from observed results and retained evidence.
+
+\subsection{Perform Verification}
+\label{Section:AIVerificationSteps}
+\noindent\textbf{AI Skill:} \hyperref[Skill:AIS-10]{\texttt{AIS-10}}.
+
+\subsubsection*{Steps}
+\label{Section:AIVerificationTaskSteps}
+Identify the requirement baseline, candidate version, mapped tests, and controlled execution evidence. Evaluate objective compliance and update the verification register with actual results, failures, and gaps.
+
+\subsubsection*{Acceptance}
+\label{Section:AIVerificationAcceptance}
+Verification dispositions trace to requirements, candidate versions, and retained evidence; missing or failed evidence is reported without claiming a pass.
+
+\subsection{Perform Validation}
+\label{Section:AIValidationSteps}
+\noindent\textbf{AI Skill:} \hyperref[Skill:AIS-11]{\texttt{AIS-11}}.
+
+\subsubsection*{Steps}
+\label{Section:AIValidationTaskSteps}
+Prepare intended-use scenarios from stories and use cases, agree success criteria and participants, and collect actual stakeholder observations and authorized dispositions. Update the validation register and report unmet needs.
+
+\subsubsection*{Acceptance}
+\label{Section:AIValidationAcceptance}
+Validation records identify the intended context, stakeholder evidence, and human disposition; agent review and passing tests are not substituted for stakeholder validation.
+
+\subsection{Review and Prepare a Release}
+\label{Section:AIReleaseSteps}
+\noindent\textbf{AI Skill:} \hyperref[Skill:AIS-12]{\texttt{AIS-12}}.
+
+\subsubsection*{Steps}
+\label{Section:AIReleaseTaskSteps}
+Audit IDs, mappings, statuses, versions, unresolved assumptions, verification,
+validation, operational readiness, and release criteria. Report contradictions
+and missing evidence. Prepare a release recommendation for human approval; do
+not approve the release.
+
+\subsubsection*{Acceptance}
+\label{Section:AIReleaseAcceptance}
+The recommendation identifies readiness, missing evidence, unresolved issues, and required human approvals without claiming release authorization.
+
+\subsection{Review Consistency}
+\label{Section:AIConsistencySteps}
+\noindent\textbf{AI Skill:} \hyperref[Skill:AIS-13]{\texttt{AIS-13}}.
+
+\subsubsection*{Steps}
+\label{Section:AIConsistencyTaskSteps}
+Apply the \hyperref[Section:AIConsistencyRules]{Mandatory Consistency Rules} to affected registers, terminology, statuses, versions, and reciprocal links. Record concrete contradictions with source locations and propose corrections.
+
+\subsubsection*{Acceptance}
+\label{Section:AIConsistencyAcceptance}
+Every reviewed inconsistency has a supported disposition or remains an explicit open issue; stable IDs and authoritative locations are preserved.
+
+\subsection{Compile or Troubleshoot}
+\label{Section:AIBuildSteps}
+\noindent\textbf{AI Skill:} \hyperref[Skill:AIS-14]{\texttt{AIS-14}}.
+
+\subsubsection*{Steps}
+\label{Section:AIBuildTaskSteps}
+Follow the \hyperref[Section:AIDocumentContext]{Document-Authoring Context} and \ChapterRef{DocumentGuide}. Run the complete build, diagnose errors in authored sources, regenerate references and indexes, and render affected pages.
+
+\subsubsection*{Acceptance}
+\label{Section:AIBuildAcceptance}
+The build succeeds, cross-references resolve, and affected pages have no new clipping or overlap; any remaining build limitation is reported explicitly.
+
+\section{Example AI Requests and Prompts}
+\label{Section:AIExamplePrompts}
+\index{AI agent!example prompts}
+Replace bracketed text with project facts. A prompt does not override this
+guide, the controlled project evidence, or human approval boundaries.
+
+\paragraph{Prompt formatting.}\label{Section:AIPromptFormatting}
+Present each copy-and-paste AI request under a descriptive subsection heading
+as a continuous, unboxed paragraph in typewriter font (\texttt{\textbackslash ttfamily}), matching the original
+verbatim examples.
+Let LaTeX wrap lines automatically to the available width. Do not insert manual
+line breaks or use a verbatim block for prose prompts. Preserve paragraph
+breaks only when the request contains distinct paragraphs. Do not add a frame,
+line numbers, or syntax highlighting. Apply this convention
+to prompt examples throughout the manual, including Appendix~D.
+
+\subsection{Initialize the Architecture Book}
+\label{Section:AIInitializePrompt}
+\begingroup\ttfamily\raggedright
+\noindent Read ftdi2AIAgentGuide.tex and use the \hyperref[Skill:AIS-02]{\texttt{AIS-02}} task steps for [Project Name]. Execute using Appendix D. Review the supplied project evidence and create a gap list before editing. Identify missing scope, stakeholders, interfaces, constraints, quality attributes, risks, evidence, and approvals. Identify the available domain profiles and ask me to confirm whether each is Applicable, Not Applicable, or TBD. Read each Applicable or relevant TBD profile and add its concerns to the gap list. After the gap list is reviewed, replace only supported placeholders and develop the document in dependency order. Compile the complete PDF and report unresolved human decisions.\par
+\endgroup
+
+
+\subsection{Tailor an Embedded System}
+\begingroup\ttfamily\raggedright
+\noindent Read ftdi2AIAgentGuide.tex and ftdi2EmbeddedSystemsProfile.tex. Apply the Embedded Systems Tailoring Profile to [Project Name]. Ask me to confirm the project namespace, profile applicability, platform class, hardware revisions, toolchain, interfaces, constraints, applicable standards, and available evidence. Add embedded concerns to the gap list before editing. After human review, place project-specific requirements, architecture, diagrams, tests, and evidence only in their authoritative core chapters. Do not invent hardware facts or verification results. Build the complete document, inspect the log, and visually inspect the affected PDF pages.\par
+\endgroup
+
+
+\subsection{Create Repository AI Bootstrap Files}
+\begingroup\ttfamily\raggedright
+\noindent Read the Repository AI Bootstrap section in ftdi2AIAgentGuide.tex and treat that LaTeX chapter as authoritative. Confirm which AI tools this repository uses and the project file namespace. Create only the applicable repository discovery files, such as AGENTS.md or CLAUDE.md, and the generic SKILL.md that directs the agent to the AI Skills Register. Keep every bootstrap file short: point to ftdi2Manual.tex, ftdi2AIAgentGuide.tex, the AI Skills Register, ftdi2AIImplementationWorkflow.tex, and ftdi2DocumentGuide.tex. Do not duplicate architecture rules. Verify that each file directs architecture-related changes back to the authoritative LaTeX sources.\par
+\endgroup
+
+
+\subsection{Develop Requirements}
+\begingroup\ttfamily\raggedright
+\noindent Read ftdi2AIAgentGuide.tex and follow the Requirements context and task steps for \hyperref[Skill:AIS-06]{\texttt{AIS-06}}. Execute using Appendix D. Load every Applicable or TBD domain profile that intersects the work. From the approved objectives and user stories, propose singular, feasible, and verifiable requirements. Classify each one, use shall for the binding obligation, assign one priority and one status, and map it to at least one use case and test case. Do not complete requirements work until each applicable profile concern maps to a new or existing requirement, or to an approved Not Applicable decision with rationale. Do not mark work Done or assign an implementation version without evidence. Update reciprocal mappings, history, and the index; then build and inspect the affected pages.\par
+\endgroup
+
+
+\subsection{Develop Use Cases}
+\begingroup\ttfamily\raggedright
+\noindent Read ftdi2AIAgentGuide.tex and follow the Use-Case context and task steps for \hyperref[Skill:AIS-07]{\texttt{AIS-07}}. Execute using Appendix D. Derive use cases from the approved actor goals and mapped requirements. Give each use case its own table with actors, trigger, preconditions, main flow, alternate and exception flows, outcome, postconditions, requirements, and tests. Maintain reciprocal links and report any flow that requires a new requirement. Build and inspect the affected pages.\par
+\endgroup
+
+
+\subsection{Develop an Architecture Decision}
+\begingroup\ttfamily\raggedright
+\noindent Read ftdi2AIAgentGuide.tex and follow the Architecture context and task steps for \hyperref[Skill:AIS-08]{\texttt{AIS-08}}. Execute using Appendix D for [decision or subsystem]. Identify driving requirements, quality attributes, constraints, interfaces, and risks. Compare reasonable alternatives and document the trade-off supporting the proposed choice. Update every affected architecture view and editable diagram source. Do not present the proposal as approved. Compile the document and inspect all affected diagrams and pages.\par
+\endgroup
+
+
+\subsection{Develop Tests and Traceability}
+\begingroup\ttfamily\raggedright
+\noindent Read ftdi2AIAgentGuide.tex and follow the Testing and Evidence context and \hyperref[Skill:AIS-09]{\texttt{AIS-09}} task steps. Execute using Appendix D. For [requirements or use cases], define repeatable tests with inputs, preconditions, steps, expected results, and required evidence. Update all reciprocal mappings and the traceability matrix. Do not invent an execution result or mark verification complete. Compile the document, check references, and inspect the affected tables.\par
+\endgroup
+
+
+\subsection{Review Release Readiness}
+\begingroup\ttfamily\raggedright
+\noindent Read ftdi2AIAgentGuide.tex and follow the Release context and task steps for \hyperref[Skill:AIS-12]{\texttt{AIS-12}} and [release]. Execute using Appendix D. Audit requirement status and implementation versions, traceability, verification, validation, defects, operations, rollback, known limitations, and approvals. Separate confirmed evidence from gaps and assumptions. Prepare a release-readiness recommendation for human review, but do not approve release. Build and inspect the final document.\par
+\endgroup
+
+
+\section{Human Decisions and Information Boundaries}
+\index{AI agent!human review}
+An authorized human shall approve scope, requirements, architecture decisions,
+security and privacy posture, safety decisions, evidence sufficiency, waivers,
+validation conclusions, and release. The agent shall present alternatives and
+evidence without claiming that review has occurred.
+
+Do not provide an AI agent with credentials, secrets, personal data,
+production data, export-controlled material, or other information it is not
+authorized to process. Before using external sources, confirm that the task
+permits network access and that the source may be incorporated. Record material
+prompts, assumptions, corrections, and unresolved issues in
+\ChapterRef{AIPromptLog}.
+
+\section{Completion Checklist}
+\index{AI agent!completion checklist}
+\small
+\begin{tabularx}{\linewidth}{L{3.5cm}Y}
+\caption{AI-Assisted Change Completion Checklist\label{Table:AICompletionChecklist}}\\
+\toprule
+\textbf{Area} & \textbf{Required Completion Evidence}\\
+\midrule
+\endfirsthead
+\multicolumn{2}{l}{\small\itshape AI-Assisted Change Completion Checklist (continued)}\\
+\toprule
+\textbf{Area} & \textbf{Required Completion Evidence}\\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+Scope & The requested outcome is complete; unrelated chapters and user changes remain untouched.\\
+Domain profiles & Every available profile has an authorized applicability
+decision and rationale; every Applicable or relevant TBD profile was included
+in the task context, and project facts remain in core chapters.\\
+Evidence & New factual statements are supported by supplied or controlled evidence; proposals, assumptions, and unknowns are identified.\\
+Terminology & Changed content uses the established AI Skill names and \texttt{aia} role identifiers under \hyperref[Rule:AITerminologyConsistency]{Consistent terminology} and \hyperref[Requirement:DOCAI004]{DOC-AI-004}.\\
+Language & Binding requirements use shall; priority and status use the controlled terms and definitions.\\
+Identifiers & Stable IDs follow the documented scope and family convention, remain unique, and are neither renumbered nor reused; every new scope or family has its definition and authorized-human approval recorded before use.\\
+File names & The project namespace was supplied or explicitly confirmed; every newly created project-owned file begins with it, and no namespace was invented.\\
+AI bootstrap & Every applicable repository AI discovery file is a thin pointer
+to the authoritative LaTeX architecture; tool-mandated filenames are documented
+exceptions, and no architecture rules are duplicated in Markdown.\\
+Traceability & Every changed requirement, use case, test, verification record, and validation record has complete reciprocal mappings.\\
+Reference links & References to defined architecture artifacts reach their authoritative definitions; AIS references reach individual register rows, and each row and skill definition provide reciprocal navigation under \hyperref[Requirement:DOCAI003]{DOC-AI-003}.\\
+History & The newest approved document change appears at the top of document history and links to the changed location.\\
+Glossary and index & New controlled terms and important concepts are defined and indexed where applicable.\\
+Diagram source & Every diagram uses TikZ; each TikZ directory exactly matches its including LaTeX file's base name, each drawing file begins with the project namespace, and the drawing is included, captioned, labeled, and referenced.\\
+Connector layout & Inspect every drawing against \hyperref[Requirement:DOCTIKZ002]{DOC-TIKZ-002}.\\
+Build & The complete platform build succeeds; citations, glossary, index, diagrams, and cross-references are regenerated.\\
+Log review & No fatal error, undefined reference, duplicate label, missing file, or unresolved layout warning remains.\\
+Visual review & Affected PDF pages show readable tables, correct page breaks, current diagrams, working headings, and no clipped or overlapping content.\\
+Human review & Decisions requiring authority are clearly identified and are not represented as approved without evidence.\\
+\end{tabularx}
+\normalsize

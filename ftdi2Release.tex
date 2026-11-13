@@ -1,0 +1,30 @@
+\chapter{Release}
+\ChapterLabel{Release}
+\section{Chapter Responsibility}
+\label{Section:ReleaseResponsibility}
+Identify the exact deliverable and establish its readiness for authorized release.
+
+\noindent\textbf{Expected result:} A controlled release package presented to the release authority.
+
+\section{How to Use This Chapter}
+Identify the release and define contents, approvals, evidence, known limitations, deployment instructions, rollback or recovery approach, and support ownership.
+
+\section{Initialization Acceptance and Publication}
+\label{Section:InitializationPublication}
+On November 12, 2026, \DocumentOwner\ accepted the initialized architecture
+documentation project and explicitly authorized committing its sources on
+\texttt{main} and pushing to
+\href{https://github.com/boh-prog/EmbeddedSoftware_Architecture.git}{boh-prog/EmbeddedSoftware\_Architecture}.
+The existing repository history is retained. This authorization resolves
+\hyperref[Question:Q-11]{Q-11}; it does not approve missing technical decisions,
+product requirements, implementation, verification, validation, or a product
+release. Questions Q-01 through Q-10 remain open in
+\hyperref[Section:OwnedQuestions]{the owned-question register}.
+
+The publication package contains the authoritative LaTeX, bibliography,
+separate TikZ sources, required class and bibliography style, build scripts,
+AI discovery pointers, template manifest, review report, and compiled PDF.
+Temporary review renders and toolchain files are not publication sources.
+The initial publication uses main under the owner's explicit instruction.
+Every later change uses a branch and pull request, as recorded in
+\hyperref[Section:ProjectChangeControl]{change control}.

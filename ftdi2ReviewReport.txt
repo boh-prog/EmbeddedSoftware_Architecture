@@ -1,0 +1,87 @@
+Embedded Software Architecture - Accepted Initialization
+November 12, 2026 | Document 0.3
+
+Owner and approver: Nkeh P. Boh
+Organization: Stevens Institute of Technology
+Email: nboh@stevens.edu
+Namespace: ftdi2
+Scope: architecture documentation only
+Embedded Systems profile: Applicable
+
+Acceptance and publication authority
+Nkeh P. Boh explicitly accepted the initialized project and authorized the
+initial source commit on main and push to:
+https://github.com/boh-prog/EmbeddedSoftware_Architecture.git
+The authoritative disposition is in ftdi2Release.tex; change control and owned
+questions are in ftdi2DevelopmentPlan.tex. Q-11 is resolved. Questions Q-01
+through Q-10 remain open and owned by Nkeh P. Boh. Every later change requires
+a branch and pull request. No product release or technical approval is inferred.
+
+Changes and source package
+Initialized a separate project from ArchitectureDesignTemplate-2.33, retained
+its attribution and authoring guidance, and applied the confirmed namespace.
+Updated metadata, front matter, owner/contact, core status, governance,
+acceptance, prompt provenance, and version history. Sample service-request
+product artifacts were not adopted as project requirements or evidence.
+Six separate TikZ sources retain owning chapter paths, captions, stable labels,
+and links. Authoritative LaTeX, bibliography, class/style dependencies, build
+scripts, discovery pointers, template manifest, this report, and compiled PDF
+form the publication package. README links to the book and authoritative records.
+Generated review images/logs are retained locally in ignored ftdi2Review/.
+
+Validation
+Executed the complete build from this project directory:
+PATH=/private/tmp/ftdi2Toolchain/TinyTeX/bin/universal-darwin:$PATH make -f ftdi2Build.mk pdf
+The approved temporary TinyTeX toolchain uses pdfTeX 1.40.29 / TeX Live 2026.
+Build ran PDFLaTeX, BibTeX, MakeGlossaries, MakeIndex, and two final LaTeX passes.
+No includeonly filter. Final log contains no fatal errors, undefined citations
+or references, duplicate label warnings, missing files, overfull/underfull
+boxes, or other LaTeX warnings. Bibliography, glossary, acronym list, index,
+contents, figures, and tables were regenerated.
+Every page was rendered in contact sheets; affected acceptance, governance,
+front matter, and history pages were visually inspected in detail. Six diagrams
+were inspected during initialization. No visible clipping or overlap remains.
+Owner PDF metadata and mailto links were checked in the preceding correction.
+All PDF named internal-link targets resolve. Fourteen AIS rows and fourteen
+reciprocal skill-definition links were retained. All six diagram paths match
+the including chapter basename and namespace. External class/style files match
+the originals. All 127 template files remain unchanged by SHA256 comparison.
+Staged whitespace review excludes unchanged external cornell.cls and
+IEEEtran.bst, which retain upstream trailing whitespace for byte fidelity.
+
+Limitations
+One agent performed drafting, build checks, and self-review; no independent
+review is claimed. Windows PowerShell build was not executed on macOS.
+Future builds require a LaTeX distribution on PATH; temporary toolchain files
+may be cleaned by the operating system. Product requirements, implementation,
+target tests, verification, and validation remain unsupported and unclaimed.
+Generic prompts and checklist patterns remain instructional guidance.
+
+Git publication preparation
+Fetched origin/main and verified it matches local main at initial commit
+2673ab5899e6f0a2058cb2196a7bbaeb24273778. Existing history and remote are retained.
+The owner-correction branch was initialization preparation; all initialized
+sources are now prepared on main under explicit owner authorization. Publication
+uses a normal push, with no force or history rewriting. Git records the source
+commit and remote state; this report does not predict the result of the push.
+Subsequent work must use a branch and pull request.
+
+Machine-observed inspection evidence
+Pages: 103 Named destinations: 480
+Internal links: 667 Broken named targets: []
+Template unchanged: True Files: 127
+External files unchanged: True
+TikZ: TikZ/ftdi2AIAgentGuide/ftdi2AIGuideActivity.tex Owner includes: True Namespace: True
+TikZ: TikZ/ftdi2AIImplementationWorkflow/ftdi2AIImplementationSequence.tex Owner includes: True Namespace: True
+TikZ: TikZ/ftdi2AIImplementationWorkflow/ftdi2AITaskExecutionActivity.tex Owner includes: True Namespace: True
+TikZ: TikZ/ftdi2Introduction/ftdi2ArchitectureUpdateFeedback.tex Owner includes: True Namespace: True
+TikZ: TikZ/ftdi2Introduction/ftdi2VModel.tex Owner includes: True Namespace: True
+TikZ: TikZ/ftdi2Introduction/ftdi2MaintainedSourceComparison.tex Owner includes: True Namespace: True
+UserStory definitions: []
+Requirement definitions: []
+UseCase definitions: []
+Architecture definitions: []
+TestCase definitions: []
+Verification definitions: []
+Validation definitions: []
+PDF SHA256: afb3931f6cd3423e14b951e0894a14212ebc41bd43a82f95be300385d65386f3

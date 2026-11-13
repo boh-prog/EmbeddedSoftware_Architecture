@@ -1,0 +1,22 @@
+\chapter{Implementation}
+\ChapterLabel{Implementation}
+\section{Chapter Responsibility}
+\label{Section:ImplementationResponsibility}
+Make the architecture reproducible through concrete implementation guidance.
+
+\noindent\textbf{Expected result:} A repeatable path from design to a working implementation.
+
+\section{How to Use This Chapter}
+Document the selected technology baseline, build and run instructions, coding conventions that enforce architecture, configuration, and definition of done. Keep design rationale in Architecture Overview.
+
+\section{Project Status}
+Implementation is outside the authorized work. Technical toolchain choices remain unresolved.
+See \hyperref[Question:Q-06]{Q-06}, owned by \DocumentOwner.
+
+\section{Document Build}
+\label{Section:ProjectBuild}
+Run \texttt{make -f ftdi2Build.mk pdf} from the project directory.
+The build runs PDFLaTeX, BibTeX, MakeGlossaries, MakeIndex, and the final
+PDFLaTeX passes. The required tools must be on PATH. There is no authorized
+firmware build or product test command. Document-build results do not establish
+implementation verification or stakeholder validation.

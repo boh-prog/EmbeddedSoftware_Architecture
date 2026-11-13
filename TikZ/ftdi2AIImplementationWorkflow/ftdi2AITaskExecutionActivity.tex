@@ -1,0 +1,41 @@
+% Shared by the architecture manual and Week 03 slides.
+\providecommand{\AIActivityRef}[2]{\hyperref[#1]{#2}}
+\providecommand{\AIActivityCColor}{dsnBlue}
+\providecommand{\AIActivityDColor}{dsnGreen}
+\providecommand{\AIActivityFlowColor}{dsnGray}
+\begin{tikzpicture}[
+  action/.style={rounded corners=2pt,text width=4.15cm,minimum height=1.45cm,
+    inner sep=5pt,align=center,font=\fontsize{10}{12}\selectfont},
+  ctask/.style={action,draw=\AIActivityCColor,fill=\AIActivityCColor!6},
+  execution/.style={action,draw=\AIActivityDColor,fill=\AIActivityDColor!6},
+  flow/.style={-{Stealth[length=2mm]},draw=\AIActivityFlowColor,line width=.8pt}
+]
+\node[ctask] (select) at (0,0) {\textbf{Appendix C: skills}\\
+  \AIActivityRef{Table:AISkills}{Select AI Skills; read Context}\\
+  \AIActivityRef{Section:AIArchitectureWorkflow}{Read Steps and Acceptance}};
+\node[execution] (plan) at (5.05,0) {\textbf{Appendix D: plan}\\
+  \AIActivityRef{Section:AIImplementationPlan}{Plan the selected tasks}\\
+  \AIActivityRef{Section:AIAgentDelegation}{Choose one or multiple agents}};
+\node[execution] (develop) at (10.1,0) {\textbf{Appendix D: develop}\\
+  \AIActivityRef{Section:AIImplementationVerification}{Develop assigned tasks}\\
+  Use the selected skill definitions};
+\node[execution] (check) at (10.1,-3.0) {\textbf{Appendix D: check}\\
+  \AIActivityRef{Section:AIImplementationVerification}{Integrate, verify, and review}\\
+  \AIActivityRef{Section:AIImplementationValidation}{Validate when required}};
+\node[ctask] (accept) at (5.05,-3.0) {\textbf{Appendix C: Acceptance}\\
+  \AIActivityRef{Section:AIArchitectureWorkflow}{Check task Acceptance}\\
+  \AIActivityRef{Table:AICompletionChecklist}{Apply completion checklist}};
+\node[ctask] (report) at (0,-3.0) {\textbf{Appendix C: report}\\
+  \AIActivityRef{Table:AICompletionChecklist}{Report results and evidence}\\
+  List open decisions};
+\node[circle,fill=\AIActivityFlowColor,inner sep=2.5pt] (start) at (-3,0) {};
+\node[circle,draw=\AIActivityFlowColor,inner sep=3.5pt] (end) at (0,-4.5) {};
+\node[circle,fill=\AIActivityFlowColor,inner sep=2pt] at (end.center) {};
+\draw[flow] (start) -- (select);
+\draw[flow] (select) -- (plan);
+\draw[flow] (plan) -- (develop);
+\draw[flow] (develop) -- (check);
+\draw[flow] (check) -- (accept);
+\draw[flow] (accept) -- (report);
+\draw[flow] (report) -- (end);
+\end{tikzpicture}

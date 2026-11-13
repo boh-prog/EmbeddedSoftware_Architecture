@@ -1,0 +1,23 @@
+% Adapted from MSE Figure 2.1.
+% Adapted from Week-02/TikZ/sldSourceOfTruthAnalogy/sldSourceOfTruthAnalogyDrawing.tex.
+\begin{tikzpicture}[font=\small,
+ source/.style={draw=dsnBlue,fill=dsnLightBlue,rounded corners=2pt,
+   text width=3.0cm,minimum height=1.25cm,align=center},
+ process/.style={draw=black!70,fill=black!6,rounded corners=2pt,
+   text width=2.3cm,minimum height=1.25cm,align=center},
+ output/.style={draw=black!55,rounded corners=2pt,
+   text width=3.7cm,minimum height=1.25cm,align=center},
+ arrow/.style={-{Latex[length=2.2mm]},line width=.8pt}]
+\node[font=\small\bfseries,anchor=east] at (-1.1,0) {Compiler};
+\node[source] (source) at (0.7,0) {C/C++ source\\stored and reviewed};
+\node[process] (compiler) at (4.5,0) {Compiler};
+\node[output] (binary) at (8.6,0) {Assembly /\\machine code\\regenerated};
+\draw[arrow] (source) -- (compiler);
+\draw[arrow] (compiler) -- (binary);
+\node[font=\small\bfseries,anchor=east] at (-1.1,-2) {AI today};
+\node[output,text width=3cm] (prompt) at (.7,-2) {Prompt\\usually incomplete};
+\node[process] (ai) at (4.5,-2) {AI};
+\node[source,text width=3.7cm] (code) at (8.6,-2) {Generated code\\stored and reviewed};
+\draw[arrow] (prompt) -- (ai);
+\draw[arrow] (ai) -- (code);
+\end{tikzpicture}

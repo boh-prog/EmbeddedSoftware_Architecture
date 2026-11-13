@@ -1,0 +1,27 @@
+% Adapted from MSE Figure 2.2.
+% Adapted from Week-02/TikZ/sldArchitectureDirectsAI/sldArchitectureDirectsAIDrawing.tex.
+% The two return routes share baseline approval, irrespective of who authors the update.
+\begin{tikzpicture}[font=\small,
+ source/.style={draw=dsnBlue,fill=dsnLightBlue,rounded corners=2pt,
+   text width=3.5cm,minimum height=1.35cm,align=center},
+ process/.style={draw=black!70,fill=black!6,rounded corners=2pt,
+   text width=3.1cm,minimum height=1.1cm,align=center},
+ arrow/.style={-{Latex[length=2.2mm]},line width=.8pt},
+ feedback/.style={arrow,draw=dsnBlue}]
+\node[source] (architecture) at (0,0)
+ {LaTeX architecture\\approved baseline\\in source control};
+\node[process] (implementation) at (5,0) {AI-assisted\\implementation};
+\node[source] (code) at (10,0) {Code and tests\\reviewed, verified,\\versioned};
+\draw[arrow] (architecture) -- (implementation);
+\draw[arrow] (implementation) -- (code);
+\node[process] (findings) at (10,-2.6) {Design findings\\from code and\\test evidence};
+\node[process] (human) at (5,-2.6) {Human\\architecture update};
+\node[process] (agent) at (5,-5) {AI-assisted\\architecture update};
+\node[source] (review) at (0,-2.6) {Review and approval\\of architecture\\changes};
+\draw[feedback] (code) -- (findings);
+\draw[feedback] (findings) -- (human);
+\draw[feedback] (human) -- (review);
+\draw[feedback] (findings.south) |- (agent.east);
+\draw[feedback] (agent.west) -| (review.south);
+\draw[feedback] (review) -- (architecture);
+\end{tikzpicture}

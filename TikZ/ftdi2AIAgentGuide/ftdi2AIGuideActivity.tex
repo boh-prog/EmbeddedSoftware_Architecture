@@ -1,0 +1,37 @@
+\begin{tikzpicture}[
+  action/.style={draw=dsnBlue,fill=dsnLightBlue,rounded corners=3pt,
+    text width=9.4cm,minimum height=0.85cm,align=center,font=\small},
+  bootstrap/.style={action,text width=4.1cm},
+  decision/.style={diamond,draw=dsnBlue,aspect=2.5,inner sep=2pt,font=\small},
+  flow/.style={-{Stealth[length=2mm]},draw=dsnGray,line width=0.8pt}
+]
+\node[circle,fill=dsnGray,inner sep=3pt] (start) at (0,0.8) {};
+\node[decision] (tool) at (0,-0.1) {AI tool?};
+\node[bootstrap] (claude) at (-2.75,-2.1) {Claude Code\\Read \texttt{CLAUDE.md}};
+\node[bootstrap] (codex) at (2.75,-2.1) {Codex\\Read \texttt{AGENTS.md}};
+\node[decision,minimum width=0.4cm,minimum height=0.2cm] (merge) at (0,-3.15) {};
+\node[action] (skill) at (0,-4.1) {Read \texttt{SKILL.md}\\Follow its pointer to the AI Skills Register};
+\node[action,below=0.45cm of skill] (guide) {Follow the pointer to \texttt{ftdi2AIAgentGuide.tex}\\Read governing rules and AI Quick Start};
+\node[action,below=0.45cm of guide] (select) {Match the requested outcome to Table C.2\\Select one or more AIS IDs};
+\node[action,below=0.45cm of select] (sources) {Read the sources listed in the selected AIS rows\\Inspect project facts, evidence, and dependencies};
+\node[action,below=0.45cm of sources] (context) {Read linked Context, Steps, and Acceptance\\Apply the shared routing rules};
+\node[action,below=0.45cm of context] (work) {Execute selected tasks using Appendix D\\Decide delegation, develop, integrate, and review};
+\node[action,below=0.45cm of work] (check) {Check results and reciprocal mappings\\Build and inspect document changes; complete the checklist};
+\node[action,below=0.45cm of check] (report) {Report changes, evidence, and unresolved decisions};
+\node[circle,draw=dsnGray,line width=0.8pt,inner sep=4pt,below=0.45cm of report] (end) {};
+\node[circle,fill=dsnGray,inner sep=2.3pt] at (end.center) {};
+\draw[flow] (start) -- (tool);
+\draw[flow] (tool.west) -| node[pos=0.35,above,font=\footnotesize] {Claude Code} (claude.north);
+\draw[flow] (tool.east) -| node[pos=0.35,above,font=\footnotesize] {Codex} (codex.north);
+\draw[flow] (claude.south) |- (merge.west);
+\draw[flow] (codex.south) |- (merge.east);
+\draw[flow] (merge) -- (skill);
+\draw[flow] (skill) -- (guide);
+\draw[flow] (guide) -- (select);
+\draw[flow] (select) -- (sources);
+\draw[flow] (sources) -- (context);
+\draw[flow] (context) -- (work);
+\draw[flow] (work) -- (check);
+\draw[flow] (check) -- (report);
+\draw[flow] (report) -- (end);
+\end{tikzpicture}

@@ -1,0 +1,43 @@
+% Front matter included after \begin{document}.
+\title{\ProjectName\\[0.5em]\large System and Software Architecture Design\\[1.5em]\normalsize\VERSION\\\DocumentStatus}
+\author{\DocumentOwner\\\Organization\\\href{mailto:\DocumentEmail}{\DocumentEmail}}
+\conferraldate{}{\DocumentDate}
+\copyrightholder{\DocumentOwner}
+\copyrightyear{2026}
+\maketitle
+
+\begin{copyrightpage}
+Project owner: \DocumentOwner \\
+Organization: \Organization \\
+Contact: \href{mailto:\DocumentEmail}{\DocumentEmail} \\
+Initial repository publication is authorized; see \hyperref[Section:InitializationPublication]{the publication record}. \\[0.2in]
+\hyperref[Chapter:DocumentHistory]{Document History (Appendix~\ref*{Chapter:DocumentHistory})}
+\end{copyrightpage}
+
+\cleardoublepage
+\phantomsection
+\chapter*{Template Attribution}
+\ChapterLabel{TemplateAttribution}
+\addcontentsline{toc}{chapter}{Template Attribution}
+\markboth{Template Attribution}{Template Attribution}
+\index{template attribution}
+\index{Muresan, Darian}
+
+This software architecture design template was developed by
+\textbf{Darian Muresan, Ph.D.}, in conjunction with the AI agents
+\textbf{OpenAI Codex} and \textbf{Anthropic Claude Code}.
+
+\begin{tabularx}{\linewidth}{@{}L{3.0cm}Y@{}}
+\textbf{Contact:} & \href{mailto:dmuresan@stevens.edu}{dmuresan@stevens.edu}\\
+& \href{mailto:darian@dmmd.net}{darian@dmmd.net}\\
+& \href{mailto:darian@pictomic.com}{darian@pictomic.com}
+\end{tabularx}
+
+\clearpage
+\begin{abstract}
+  \input{ftdi2Abstract.tex}
+\end{abstract}
+
+\contentspage
+\tablelistpage
+\figurelistpage
